@@ -3,6 +3,7 @@ import "./globals.css";
 import QueryProvider from "@/provider/QueryProvider";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
+import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,9 @@ export default function RootLayout({ children }) {
         <SidebarProvider>
           <AppSidebar />
           <main className="w-full">
+            <Navbar />
             <SidebarTrigger />
+
             {children}
           </main>
         </SidebarProvider>
