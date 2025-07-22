@@ -21,7 +21,7 @@ export default function Home() {
           </p>
         </div>
         <div className="flex gap-4 flex-wrap mx-auto sm:justify-start">
-          <Link href="/blogs">
+          <Link href="/sign-in">
             <Button
               variant="default"
               className="px-6 py-3 text-base font-semibold shadow-md hover:scale-105 transition-transform duration-300"
@@ -71,21 +71,25 @@ export default function Home() {
       </section>
       <section className="h-[50vh] sm:h-[30vh] w-full flex flex-col">
         <div className="flex flex-col items-center justify-center gap-4 max-w-[50%]  mx-auto">
-        <h4 className="font-bold text-2xl">
-          Transform Your Carreer in Content Writing
-        </h4>
-        <p className="text-xl text-gray-700 ">
-          Join the Platform to Write and Publish Content
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 mt-4">
-          <input
-            className="bg-zinc-200 focus-outline-none rounded-md px-4 py-2 w-full sm:w-[300px] text-sm"
-            placeholder="Enter your email"
-          />
-          <Button
-            variant="default"
-            className="px-6 py-2 text-sm font-semibold shadow-md hover:scale-105 transition-transform duration-300"> Submit</Button>
-        </div>
+          <h4 className="font-bold text-2xl">
+            Transform Your Carreer in Content Writing
+          </h4>
+          <p className="text-xl text-gray-700 ">
+            Join the Platform to Write and Publish Content
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 mt-4">
+            <input
+              className="bg-zinc-200 focus-outline-none rounded-md px-4 py-2 w-full sm:w-[300px] text-sm"
+              placeholder="Enter your email"
+            />
+            <Button
+              variant="default"
+              className="px-6 py-2 text-sm font-semibold shadow-md hover:scale-105 transition-transform duration-300"
+            >
+              {" "}
+              Submit
+            </Button>
+          </div>
         </div>
       </section>
     </main>

@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+ 
+}
+
+datasource db {
+  provider     = "mongodb"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Account {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?  
+  access_token      String?  
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?  
+  session_state     String?
+  createdAt         DateTime @default(now())
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  username      String    @unique @default(nanoid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  role          String?
+  accounts      Account[]
+  sessions      Session[]
+  Post          Post[]
+}
+
+model Post {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  slug      String     @unique
+  content   String
+  thumbnail String?
+  desc      String?
+  catslug   String
+  status    PostStatus @default(DRAFT)
+  category Category ?  @relation(fields:[catslug],references:[slug])
+  keyword   String?
+  excerpts  String?
+  authorId  String     @db.ObjectId
+  author    User       @relation(fields: [authorId], references: [id])
+  createdAt DateTime   @default(now())
+}
+
+model Category {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  slug  String @unique
+  posts Post[]
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  DELETED
+  ARCHIVED
+}
+
+model VerificationRequest {
+  identifier String  @id @default(auto())@map("_id")@db.ObjectId
+  token      String
+  expires    DateTime
+  createsAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  @@unique([identifier, token])
+}

@@ -7,9 +7,6 @@ const blogConfig = [
     title: "Spring Boot vs Node JS",
     excerpt: "A guide for the beginner",
     image: "/thumbnail/spring-vs-node-js .png", 
-
-
-
     url:"blog/demo-slug"
   },
   {
@@ -29,7 +26,7 @@ const blogConfig = [
   {
     id: 4,
     title: "Frontend Developer Roadmap",
-    excerpt: "Start Your journey as a react developer",
+    excerpt: "Start Your journey as a  front-end-developer",
     image: "/thumbnail/frontendroadmap.webp",
     url:"blog/demo-slug"
   },
