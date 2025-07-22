@@ -12,6 +12,7 @@ import {
 import { getAuthsession } from '@/lib/auth';
 import Link from 'next/link';
 import Image from 'next/image';
+import SignOut from './signout';
 
 
 async function Navbar() {
@@ -60,7 +61,7 @@ const UserModal = ({user}) => {
           </DropdownMenuItem>
           
           <DropdownMenuItem>
-            {/* <SignOut/> */}
+            <SignOut/>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

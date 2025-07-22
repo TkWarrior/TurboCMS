@@ -10,10 +10,15 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Files, Layout, Pen } from "lucide-react";
+import { Files, Home, Inbox, Layout, Pen, Search } from "lucide-react";
 import Link from "next/link";
 
 const menue = [
+  {
+    title: "Home",
+    url: "/",
+    icon: Home,
+  },
   {
     title: "Dash Board",
     url: "/dashboard",
@@ -22,13 +27,19 @@ const menue = [
   {
     title: "Blogs",
     url: "/blogs",
-    icon:  Files,
+    icon: Inbox,
   },
+
   {
     title: "Draft",
     url: "/draft",
     icon: Pen,
   },
+  {
+    title: "Search",
+    url: "/search",
+    icon: Search,
+  }
 ];
 export function AppSidebar() {
   return (
