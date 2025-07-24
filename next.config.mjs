@@ -2,9 +2,18 @@
 const nextConfig = {
   images: {
     remotePatterns: [
-      new URL(
-        "https://lh3.googleusercontent.com/a/ACg8ocKJ6ND6MSXuTIVkO3g93ZWpLCYfxpbL0XrqVfIJq2ts1g4Kv88=s96-c"
-      ),
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };
