@@ -1,4 +1,5 @@
 "use client";
+
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import "react-quill-new/dist/quill.snow.css";
@@ -8,7 +9,8 @@ import { slugify } from "slugmaster";
 import ImageUpload from "./ImageUpload";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { z, ZodError } from "zod";
+import { z } from "zod";
+
 
 const schema = z.object({
   title : z.string().min(10 , {message : "Title must contain 10 character"}),
@@ -17,12 +19,12 @@ const schema = z.object({
   metaDescription : z.string().optional(),
   content : z.string({message : "Please add some content"}),
   keyword : z.string().min(1 , {message : "Please add some keywords for better SEO"}),
-  status : z.enum(["DRAFTS","PUBLISHED"])
+  status : z.enum(["DRAFT","PUBLISHED"])
 })
+
 export default function Editor({ onSave ,initialData }) {
-  const { register, handleSubmit,setValue,formState: {errors} } = useForm({
-    resolver : 
-  });
+ 
+  const { register, handleSubmit,setValue,formState: {errors} } = useForm();
   const [content, setContent] = useState("");
   const [ogImage, setOgImage] = useState("");
   const router = useRouter();
@@ -49,11 +51,12 @@ export default function Editor({ onSave ,initialData }) {
       } else {
         toast.success("Successfully created the post");
       }
-      if (data.status == "PUBLISHED") {
+      if (data.status === "PUBLISHED") {
         router.push(`/blog/${generateSlug}`);
       }
    } catch (error) {
       console.error(error.message);
+      toast.error("failed to save the post. Please try again.");
    }
     
   };
@@ -83,23 +86,22 @@ export default function Editor({ onSave ,initialData }) {
   return (
     <form
       className=" w-full h-screen justify-center space-y-2"
-      onSubmit={handleSubmit(async(data)=>{
-        try {
-          await schema.parseAsync(data);
-          handleForm(data);
-        } catch (error) {
-            if(error instanceof ZodError){
-             
-              error.errors.map((validationError) => {
-              toast.error(validationError.message);
-              });
-            }else{
-              console.error("An unexpected error occurred:", error);
-              toast.error("An unexpected error occurred. Please try again.");
-            }
-          }
-        
-      })}
+      onSubmit={handleSubmit(handleForm)
+      //   async(data)=>{
+      //   try {
+      //     await schema.parseAsync(data);
+      //     await handleForm(data);
+      //   } catch (error) {
+      //       if (error instanceof z.ZodError) {
+      //         error.errors.forEach((err) => {
+      //           toast.error(`${err.path.join(".")}: ${err.message}`);
+      //         });
+      //       } else {
+      //         toast.error("Failed to save the post. Please try again.");
+      //       }
+      //     };  
+      // })
+    }
     >
       <input
         {...register("title")}
