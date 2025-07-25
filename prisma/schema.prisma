@@ -63,7 +63,7 @@ model Post {
   content   String
   thumbnail String?
   desc      String?
-  catslug   String
+  catslug   String?
   status    PostStatus @default(DRAFT)
   category Category ?  @relation(fields:[catslug],references:[slug])
   keyword   String?

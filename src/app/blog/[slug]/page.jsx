@@ -5,7 +5,7 @@ import Image from "next/image";
 import "@/style/blog.css"
 
 const fetchSinglePage = async(slug) => {
-      const res = await axios.get(`${process.env.NEXTAUTH_URL}//api/v1/get/${slug}`)
+      const res = await axios.get(`${process.env.NEXTAUTH_URL}//api/v1/get/${slug}`, {next : {tags : [slug]}})
       const data = await res.data;
       console.log("single blog page",data);
       return data;

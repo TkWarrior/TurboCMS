@@ -2,10 +2,11 @@ import { storage } from "@/static/firebaseConfig";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useState } from "react"
 
-export default function ImageUpload({returnImage}){
+export default function ImageUpload({returnImage , savedImage}){
     const [imageAsFile , setImageAsFile] = useState("");
     const [loading , setLoading] = useState(false);
     const [imageUrl , setImageUrl] = useState("");
+   
     const hanldeImageAsFile = async(e) =>{
         const image = e.target.files[0];
         setImageAsFile(image);
@@ -29,8 +30,20 @@ export default function ImageUpload({returnImage}){
             setLoading(false)
         }
     }
-
+    if(savedImage){
+      return (
+        <div>
+          <label className="font-bold">
+            <span>Update Cover Image Here</span>
+            <input type="file" hidden onChange={hanldeImageAsFile} />
+          </label>
+          <img className="h-50" src={savedImage} style={{ width: "100%" }}></img>
+        </div>
+      );
+    }
+    
     return (
+      
       <div className="border-dashed border-2 p-2 w-fit">
         <label className="font-bold">
           <span>Upload Cover Image Here</span>

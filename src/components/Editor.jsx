@@ -2,23 +2,35 @@
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import "react-quill-new/dist/quill.snow.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactQuill from "react-quill-new";
 import { slugify } from "slugmaster";
 import ImageUpload from "./ImageUpload";
 
-export default function Editor({ onSave }) {
-  const { register, handleSubmit } = useForm();
+export default function Editor({ onSave ,initialData }) {
+  const { register, handleSubmit,setValue } = useForm();
   const [content, setContent] = useState("");
   const [ogImage, setOgImage] = useState("");
   
+  useEffect(() => {
+    if (initialData) {
+      setValue("title", initialData.title);
+      setContent(initialData.content);
+      setValue("keyword", initialData.keyword || "");
+      setValue("metaDescription", initialData.desc || "");
+      setValue("excerpts", initialData.excerpts || "");
+      setValue("category", initialData.catslug || "");
+      setValue("status", initialData.status);
+      setOgImage(initialData.thumbnail);
+    }
+  }, [initialData]);
+
   const handleForm = (data) => {
     console.log("form data", data);  
     const generateSlug = slugify(data.title)
     onSave({...data  , slug:generateSlug , ogImage , content})
   };
 
-  console.log(ogImage)
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -81,7 +93,7 @@ export default function Editor({ onSave }) {
         placeholder="Enter Category"
         className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
       />
-      <ImageUpload returnImage={setOgImage}/>
+      <ImageUpload returnImage={setOgImage} savedImage={ogImage}/>
       <div className="flex gap-2">
         <select
           {...register("status")}
