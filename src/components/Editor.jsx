@@ -6,12 +6,27 @@ import { useEffect, useState } from "react";
 import ReactQuill from "react-quill-new";
 import { slugify } from "slugmaster";
 import ImageUpload from "./ImageUpload";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { z, ZodError } from "zod";
 
+const schema = z.object({
+  title : z.string().min(10 , {message : "Title must contain 10 character"}),
+  excerpts : z.string().min(10 , {message : "Please Add Details for the excerpt"}),
+  category : z.string().min(1 , {message:"Please Add a Category"}),
+  metaDescription : z.string().optional(),
+  content : z.string({message : "Please add some content"}),
+  keyword : z.string().min(1 , {message : "Please add some keywords for better SEO"}),
+  status : z.enum(["DRAFTS","PUBLISHED"])
+})
 export default function Editor({ onSave ,initialData }) {
-  const { register, handleSubmit,setValue } = useForm();
+  const { register, handleSubmit,setValue,formState: {errors} } = useForm({
+    resolver : 
+  });
   const [content, setContent] = useState("");
   const [ogImage, setOgImage] = useState("");
-  
+  const router = useRouter();
+
   useEffect(() => {
     if (initialData) {
       setValue("title", initialData.title);
@@ -26,9 +41,21 @@ export default function Editor({ onSave ,initialData }) {
   }, [initialData]);
 
   const handleForm = (data) => {
-    console.log("form data", data);  
-    const generateSlug = slugify(data.title)
-    onSave({...data  , slug:generateSlug , ogImage , content})
+   try {
+      const generateSlug = initialData ? initialData.slug : slugify(data.title);
+      onSave({ ...data, slug: generateSlug, ogImage, content });
+      if (initialData) {
+        toast.success("Successfully updated the post");
+      } else {
+        toast.success("Successfully created the post");
+      }
+      if (data.status == "PUBLISHED") {
+        router.push(`/blog/${generateSlug}`);
+      }
+   } catch (error) {
+      console.error(error.message);
+   }
+    
   };
 
   const modules = {
@@ -56,7 +83,23 @@ export default function Editor({ onSave ,initialData }) {
   return (
     <form
       className=" w-full h-screen justify-center space-y-2"
-      onSubmit={handleSubmit(handleForm)}
+      onSubmit={handleSubmit(async(data)=>{
+        try {
+          await schema.parseAsync(data);
+          handleForm(data);
+        } catch (error) {
+            if(error instanceof ZodError){
+             
+              error.errors.map((validationError) => {
+              toast.error(validationError.message);
+              });
+            }else{
+              console.error("An unexpected error occurred:", error);
+              toast.error("An unexpected error occurred. Please try again.");
+            }
+          }
+        
+      })}
     >
       <input
         {...register("title")}
