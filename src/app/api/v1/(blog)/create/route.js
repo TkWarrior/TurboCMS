@@ -10,7 +10,7 @@ export async function POST( request ) {
   const body = await request.json();
   const { title,slug,ogImage,content,keyword,metaDescription,excerpts, category,status} = body;
 
-//   console.log(title,slug, ogImage,content,keyword,metaDescription,excerpts,category,status,"content");
+  console.log(title,slug, ogImage,content,keyword,metaDescription,excerpts,category,status,"content");
   
   if (!title || !content || !slug || !category || !session.user.id) {  
     return NextResponse.json({message:"Missing fileds"},{status:400})
@@ -51,6 +51,7 @@ export async function POST( request ) {
     });
     return NextResponse.json(post, { status: 201 });
   } catch (error) {
+    console.error("couldn't send message");
     return NextResponse.json({message:"couldn't send message"},{status:500})
   }
   

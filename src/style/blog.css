@@ -1,0 +1,35 @@
+.blogContent{
+    background-color: rgb(255, 249, 241);
+}
+
+.blogContent h2{
+    font-size: 1.2rem;
+    color: black;
+    font-weight: 500;
+    border-left: 5px solid rgb(165, 165, 165);
+    padding :5px 0 5px 10px;
+}
+
+.blogContent ol {
+    margin: 10psx 0;
+    padding-left: 20px;
+}
+
+.blogContent p{
+    color: var(--font-serif);
+}
+.blogContent li{
+    position: relative;
+}
+
+.blogContent li:before{
+    content: '•';
+    color: #f1f1f1;
+    font-size: 1.5rem;
+    position: absolute;
+    left: -20px;
+}
+
+.blogContent img{
+    border-radius: 10px;
+}
