@@ -17,7 +17,7 @@ export async function GET(request, { params }) {
       },
     },
   });
-  console.log(post);
+  // console.log(post);
   if (!post) {
     return NextResponse.json(
       { message: "couldn't find the post" },

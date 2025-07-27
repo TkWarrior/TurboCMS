@@ -3,11 +3,18 @@ import axios from "axios";
 import { Calendar } from "lucide-react";
 import Image from "next/image";
 import "@/style/blog.css"
+import { notFound } from "next/navigation";
 
 const fetchSinglePage = async(slug) => {
-      const res = await axios.get(`${process.env.NEXTAUTH_URL}//api/v1/get/${slug}`, {next : {tags : [slug]}})
-      const data = await res.data;
-      console.log("single blog page",data);
+      const res = await fetch(`${process.env.NEXTAUTH_URL}//api/v1/get/${slug}`, {next : {tags : [slug]}})
+    
+      // if(res.status == 404){
+      //  return notFound()
+      // }
+     
+      const data = await res.json();
+      
+      // console.log("single blog page",data);
       return data;
 };
 
@@ -28,17 +35,19 @@ export default async function SingleBlogPage({params}) {
   
   const {slug} = params;
   const singlePost = await fetchSinglePage(slug)
-  // console.log(singlePost)
+  console.log("single page post ",singlePost)
   return (
     <section className="md:w-[70%] mx-auto p-6">
       <div className="bg-white rounded-2xl shadow-md overflow-hidden text-center">
-        {singlePost.thumbnail&&<Image
-          src={singlePost.thumbnail}
-          alt="React vs Next.js"
-          width={500}
-          height={250}
-          className="mx-auto object-cover w-full rounded-t-2xl"
-        />}
+        {singlePost.thumbnail && (
+          <Image
+            src={singlePost.thumbnail}
+            alt="React vs Next.js"
+            width={500}
+            height={250}
+            className="mx-auto object-cover w-full rounded-t-2xl"
+          />
+        )}
         <h1 className="text-2xl font-bold md:text-4xl ">{singlePost.title}</h1>
         <div className="p-6 w-fit space-y-3">
           {/* Date */}
@@ -73,7 +82,10 @@ export default async function SingleBlogPage({params}) {
         {/* <p className="text-gray-600">
             {singlePost.content}
         </p> */}
-        <div className="blogContent" dangerouslySetInnerHTML={{__html:singlePost.content}}></div>
+        <div
+          className="blogContent"
+          dangerouslySetInnerHTML={{ __html: singlePost.content }}
+        ></div>
       </div>
     </section>
   );

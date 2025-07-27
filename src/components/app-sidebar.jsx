@@ -10,7 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Files, Home, Inbox, Layout, Pen, Search } from "lucide-react";
+import { Files, Home, Inbox, Layout, Pen, PencilRulerIcon, Search } from "lucide-react";
 import Link from "next/link";
 
 const menue = [
@@ -33,7 +33,7 @@ const menue = [
   {
     title: "Draft",
     url: "/draft",
-    icon: Pen,
+    icon: PencilRulerIcon,
   },
   {
     title: "Search",
@@ -41,10 +41,27 @@ const menue = [
     icon: Search,
   }
 ];
+
+const adminItems = [
+  {
+    title: "Home",
+    url: "/",
+    icon: Home,
+  },
+  {
+    title: "Dash Board",
+    url: "/dashboard",
+    icon: Layout,
+  },
+  {
+    title: "All Blogs",
+    url: "/posts",
+    icon: Inbox,
+  },
+];
 export function AppSidebar() {
   return (
-
-    <Sidebar >
+    <Sidebar>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
@@ -63,8 +80,24 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Admin</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {adminItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <Link href={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
     </Sidebar>
-
   );
 }
