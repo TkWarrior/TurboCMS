@@ -7,7 +7,7 @@ import { Trash } from "lucide-react";
 function EditableBlogCard({ post }) {
      const router = useRouter();
     const [currentStatus , setCurrentStatus] = useState(post.status)
-   console.log(`${process.env.NEXTAUTH_URL}/api/v1/state`);
+   
     const handleConvertToDraft = async(id)=>{
          const res = await fetch(`/api/v1/state`,{
                 method : "PATCH",

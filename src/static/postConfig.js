@@ -1,3 +1,3 @@
 export const postConfig = {
-    perPage : 9 
+    perPage :4
 }

@@ -1,3 +1,4 @@
+
 import AdminAllPosts from "@/components/admin/AdminAllPosts";
 import { authOptions } from "@/lib/auth"
 import isAdmin from "@/utils/isAdmin";
@@ -19,6 +20,7 @@ export default async function AllPosts({searchParams}){
     return (
         <div>
             <AdminAllPosts page={page} category={category}/>
+        
         </div>
     )
 }
