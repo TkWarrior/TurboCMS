@@ -1,6 +1,6 @@
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import isAdmin from "@/utils/isAdmin";
+import isAdmin from "@/app/utils/isAdmin";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 

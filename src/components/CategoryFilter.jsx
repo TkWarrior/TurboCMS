@@ -18,7 +18,7 @@ export default function CategoryFilter() {
     }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="flex gap-2"onSubmit={handleSubmit}>
       <Input
         value={category}
         className="w-[400px]"

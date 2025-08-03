@@ -2,8 +2,9 @@
 import AdminAllPosts from "@/components/admin/AdminAllPosts";
 import CategoryFilter from "@/components/CategoryFilter";
 import { authOptions } from "@/lib/auth"
-import isAdmin from "@/utils/isAdmin";
+import isAdmin from "@/app/utils/isAdmin";
 import { getServerSession } from "next-auth"
+import UserAllPosts from "@/components/admin/UserAllBlogs";
 
 export default async function AllPosts({searchParams}){
     // pagination implementation
@@ -14,9 +15,7 @@ export default async function AllPosts({searchParams}){
     // debugging
     console.log("admin check"  , adminCheck)
     if(!adminCheck){ 
-        return (
-            <div> Not Accessible</div>
-        )
+        return <UserAllPosts page={page} category={category} user={session.user}/>;
     }
     return (
         <div> 

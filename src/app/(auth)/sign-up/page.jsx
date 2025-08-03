@@ -1,9 +1,11 @@
 "use client"
 import AuthForm from "@/components/authForm";
 
-export default function SignIn(){
+export default function SignUp(){
    
     return (
-     <AuthForm/>
+
+     <AuthForm origin={"sign-up"}/>
     );
 }
+
