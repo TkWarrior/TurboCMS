@@ -3,31 +3,52 @@
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import "react-quill-new/dist/quill.snow.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactQuill from "react-quill-new";
 import { slugify } from "slugmaster";
 import ImageUpload from "./ImageUpload";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
-
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import AiContent from "@/static/ai-content";
 
 const schema = z.object({
-  title : z.string().min(10 , {message : "Title must contain 10 character"}),
-  excerpts : z.string().min(10 , {message : "Please Add Details for the excerpt"}),
-  category : z.string().min(1 , {message:"Please Add a Category"}),
-  metaDescription : z.string().optional(),
-  content : z.string({message : "Please add some content"}),
-  keyword : z.string().min(1 , {message : "Please add some keywords for better SEO"}),
-  status : z.enum(["DRAFT","PUBLISHED"])
-})
+  title: z.string().min(10, { message: "Title must contain 10 character" }),
+  excerpts: z
+    .string()
+    .min(10, { message: "Please Add Details for the excerpt" }),
+  category: z.string().min(1, { message: "Please Add a Category" }),
+  metaDescription: z.string().optional(),
+  content: z.string({ message: "Please add some content" }),
+  keyword: z
+    .string()
+    .min(1, { message: "Please add some keywords for better SEO" }),
+  status: z.enum(["DRAFT", "PUBLISHED"]),
+});
 
-export default function Editor({ onSave ,initialData }) {
- 
-  const { register, handleSubmit,setValue,formState: {errors} } = useForm();
+export default function Editor({ onSave, initialData }) {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
+
   const [content, setContent] = useState("");
   const [ogImage, setOgImage] = useState("");
   const router = useRouter();
+  const idearef = useRef(null);
+  const closeDialogRef = useRef(null);
 
   useEffect(() => {
     if (initialData) {
@@ -43,7 +64,7 @@ export default function Editor({ onSave ,initialData }) {
   }, [initialData]);
 
   const handleForm = (data) => {
-   try {
+    try {
       const generateSlug = initialData ? initialData.slug : slugify(data.title);
       onSave({ ...data, slug: generateSlug, ogImage, content });
       if (initialData) {
@@ -54,11 +75,10 @@ export default function Editor({ onSave ,initialData }) {
       if (data.status === "PUBLISHED") {
         router.push(`/blog/${generateSlug}`);
       }
-   } catch (error) {
+    } catch (error) {
       console.error(error.message);
       toast.error("failed to save the post. Please try again.");
-   }
-    
+    }
   };
 
   const modules = {
@@ -83,25 +103,44 @@ export default function Editor({ onSave ,initialData }) {
     "code-block",
   ];
 
+  const handleContentGenerationUsingAI = async () => {
+    //  text = idearef.current.value ;
+    //  contentGen = true;
+    //  customInstruction = "Generate Content with proper facts and figures";
+    try {
+       const res = await AiContent({
+         text: idearef.current.value,
+         contentGen: true,
+         customInstruction: "Generate Content with prpoer facts and figures",
+       });
+       setContent(res);
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      closeDialogRef.current.click();
+    }
+   
+  };
   return (
     <form
       className=" w-full h-screen justify-center space-y-2"
-      onSubmit={handleSubmit(handleForm)
-      //   async(data)=>{
-      //   try {
-      //     await schema.parseAsync(data);
-      //     await handleForm(data);
-      //   } catch (error) {
-      //       if (error instanceof z.ZodError) {
-      //         error.errors.forEach((err) => {
-      //           toast.error(`${err.path.join(".")}: ${err.message}`);
-      //         });
-      //       } else {
-      //         toast.error("Failed to save the post. Please try again.");
-      //       }
-      //     };  
-      // })
-    }
+      onSubmit={
+        handleSubmit(handleForm)
+        //   async(data)=>{
+        //   try {
+        //     await schema.parseAsync(data);
+        //     await handleForm(data);
+        //   } catch (error) {
+        //       if (error instanceof z.ZodError) {
+        //         error.errors.forEach((err) => {
+        //           toast.error(`${err.path.join(".")}: ${err.message}`);
+        //         });
+        //       } else {
+        //         toast.error("Failed to save the post. Please try again.");
+        //       }
+        //     };
+        // })
+      }
     >
       <input
         {...register("title")}
@@ -126,6 +165,32 @@ export default function Editor({ onSave ,initialData }) {
         placeholder="Enter Meta Description"
         className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
       />
+
+      <Dialog>
+        <DialogTrigger className="border-2 rounded-md border-black p-2">
+          Generate Using AI
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Write what do you want to generate?</DialogTitle>
+            <DialogDescription>
+              Create a quick draft using AI{" "}
+            </DialogDescription>
+            <textarea
+              ref={idearef}
+              rows={10}
+              className="outline-none bg-zinc-300/50 p-3"
+            />
+          </DialogHeader>
+          <DialogFooter>
+            <Button onClick={handleContentGenerationUsingAI}>Generate</Button>
+            <DialogClose asChild ref={closeDialogRef}>
+              <Button className="bg-red-500">Close</Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       <h2>SEO Data</h2>
       <input
         {...register("excerpts")}
@@ -138,7 +203,7 @@ export default function Editor({ onSave ,initialData }) {
         placeholder="Enter Category"
         className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
       />
-      <ImageUpload returnImage={setOgImage} savedImage={ogImage}/>
+      <ImageUpload returnImage={setOgImage} savedImage={ogImage} />
       <div className="flex gap-2">
         <select
           {...register("status")}
