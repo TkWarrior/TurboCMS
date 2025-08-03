@@ -60,7 +60,7 @@ export default async function SingleBlogPage({params}) {
               </p>
             </div>
 
-            <div className="flex items-center ml-auto">
+            <div className="flex items-center gap-2 ml-auto">
               <Image
                 src={singlePost.author.image}
                 width={25}
