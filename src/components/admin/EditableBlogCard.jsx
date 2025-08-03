@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { Trash } from "lucide-react";
 
-function EditableBlogCard({ post }) {
+function EditableBlogCard({ post }){
      const router = useRouter();
     const [currentStatus , setCurrentStatus] = useState(post.status)
    
@@ -70,7 +70,7 @@ function EditableBlogCard({ post }) {
 
      
       <div className=" border-slate-200 flex gap-2 items-center">
-        {currentStatus == "PUBLISHED" ? (
+        {currentStatus === "PUBLISHED" ? (
           <div className="flex flex-wrap gap-2">
             <Button variant="default" size="sm" onClick={() => handleConvertToDraft(post.id)}>
               Convert To Draft

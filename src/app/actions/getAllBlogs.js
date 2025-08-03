@@ -3,17 +3,17 @@ import { postConfig } from "@/static/postConfig";
 
 export default async function getAllBlogs({ page=1, category }) {
   const postPerPage = postConfig.perPage ;
-
+  console.log("page no:",page,"no of posts per page:",postPerPage)
   let query = {
     take: postPerPage,
     skip: postPerPage*(page-1), // no of posts to skip after each page
     where: {
       ...(category && {
-            catSlug: {
+            catslug: {
                 equals: category,
-                mode: 'insensitive'
+                mode : "insensitive"
             }
-        }),
+        })
     },
     orderBy: {
       createdAt: "desc",
@@ -24,7 +24,7 @@ export default async function getAllBlogs({ page=1, category }) {
     prisma.post.findMany(query),
     prisma.post.count({
       where: {
-        ...(category && { catSlug: category }),
+        ...(category && { catslug: category }),
       }
     })
   ]);

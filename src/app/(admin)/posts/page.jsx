@@ -1,13 +1,14 @@
 
 import AdminAllPosts from "@/components/admin/AdminAllPosts";
+import CategoryFilter from "@/components/CategoryFilter";
 import { authOptions } from "@/lib/auth"
 import isAdmin from "@/utils/isAdmin";
 import { getServerSession } from "next-auth"
 
 export default async function AllPosts({searchParams}){
     // pagination implementation
-    const page = searchParams.page || 1;
-    const category = searchParams.cat;
+    const page =  searchParams.page || 1;
+    const category = searchParams.cat || null;
     const session  = await getServerSession(authOptions);
     const adminCheck = await isAdmin(session);
     // debugging
@@ -18,9 +19,8 @@ export default async function AllPosts({searchParams}){
         )
     }
     return (
-        <div>
+        <div> 
             <AdminAllPosts page={page} category={category}/>
-        
         </div>
     )
 }
