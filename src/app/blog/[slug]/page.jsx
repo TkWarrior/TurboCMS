@@ -49,14 +49,27 @@ export default async function SingleBlogPage({params}) {
           />
         )}
         <h1 className="text-2xl font-bold md:text-4xl ">{singlePost.title}</h1>
-        <div className="p-6 w-fit space-y-3">
+        <div className="p-6 space-y-3 w-full">
           {/* Date */}
-          <div className="flex items-center  gap-2 text-gray-600 text-sm">
-            <Calendar size={18} />
-            <p>
-              Created At:{" "}
-              <span className="font-medium">{dateFormate(new Date())}</span>
-            </p>
+          <div className="flex items-center gap-2 text-gray-600 text-sm">
+            <div className="flex">
+              <Calendar size={18} />
+              <p>
+                Created At:{" "}
+                <span className="font-medium">{dateFormate(new Date())}</span>
+              </p>
+            </div>
+
+            <div className="flex items-center ml-auto">
+              <Image
+                src={singlePost.author.image}
+                width={25}
+                height={25}
+                alt="author image"
+                className="rounded-full "
+              />
+              <p>{singlePost.author.name}</p>
+            </div>
           </div>
 
           <div className="flex items-center gap-2 text-gray-700">

@@ -10,7 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Files, Home, Inbox, Layout, Pen, PencilRulerIcon, Search } from "lucide-react";
+import { Files, Home, Inbox, Layout, Pen, PencilRulerIcon, PersonStanding, Search } from "lucide-react";
 import Link from "next/link";
 
 const menue = [
@@ -44,9 +44,9 @@ const menue = [
 
 const adminItems = [
   {
-    title: "Home",
-    url: "/",
-    icon: Home,
+    title: "All Users",
+    url: "/user",
+    icon: PersonStanding,
   },
   {
     title: "Dash Board",
