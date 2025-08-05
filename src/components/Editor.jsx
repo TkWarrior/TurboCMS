@@ -49,6 +49,8 @@ export default function Editor({ onSave, initialData }) {
   const router = useRouter();
   const idearef = useRef(null);
   const closeDialogRef = useRef(null);
+  const ReactQuillRef = useRef(null);
+  const [selectionExist , setSelectionExist] = useState(false);
 
   useEffect(() => {
     if (initialData) {
@@ -103,6 +105,11 @@ export default function Editor({ onSave, initialData }) {
     "code-block",
   ];
 
+  const handleChangeSelection = () =>{
+        const selection = ReactQuillRef?.current?.getEditor()?.getSelection();
+        setSelectionExist(selection&&selection.length>0);
+  } 
+
   const handleContentGenerationUsingAI = async () => {
     //  text = idearef.current.value ;
     //  contentGen = true;
@@ -121,101 +128,127 @@ export default function Editor({ onSave, initialData }) {
     }
    
   };
+
+  const handleParahrase = async() => { 
+     const selection = ReactQuillRef?.current?.getEditor()?.getSelection();
+
+     if(selection && selection.length>0){
+        try {
+          const selectedText = ReactQuillRef?.current?.getEditor()?.getText(selection.index , selection.length);
+          console.log("selected text:",selectedText)
+          const res = await AiContent({text : selectedText , contentGen:false , customInstruction : "Rephrase This Text "});
+          ReactQuillRef?.current?.getEditor()?.deleteText(selection.index , selection.length);
+          ReactQuillRef?.current?.getEditor()?.insertText(selection.index , res);
+          setSelectionExist(false);
+        } catch (error) {
+          toast("paraphrase failed try again");
+          console.error("paraphrase failed try again");
+        }
+     }else{
+        toast("select the text first")
+     }
+     
+  }
   return (
-    <form
-      className=" w-full h-screen justify-center space-y-2"
-      onSubmit={
-        handleSubmit(handleForm)
-        //   async(data)=>{
-        //   try {
-        //     await schema.parseAsync(data);
-        //     await handleForm(data);
-        //   } catch (error) {
-        //       if (error instanceof z.ZodError) {
-        //         error.errors.forEach((err) => {
-        //           toast.error(`${err.path.join(".")}: ${err.message}`);
-        //         });
-        //       } else {
-        //         toast.error("Failed to save the post. Please try again.");
-        //       }
-        //     };
-        // })
-      }
-    >
-      <input
-        {...register("title")}
-        placeholder="Enter the title"
-        className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
-      />
-      <ReactQuill
-        theme="snow"
-        value={content}
-        onChange={setContent}
-        modules={modules}
-        formats={formats}
-      />
+    <div>
+      <form
+        className=" w-full h-screen justify-center space-y-2"
+        onSubmit={
+          handleSubmit(handleForm)
+          //   async(data)=>{
+          //   try {
+          //     await schema.parseAsync(data);
+          //     await handleForm(data);
+          //   } catch (error) {
+          //       if (error instanceof z.ZodError) {
+          //         error.errors.forEach((err) => {
+          //           toast.error(`${err.path.join(".")}: ${err.message}`);
+          //         });
+          //       } else {
+          //         toast.error("Failed to save the post. Please try again.");
+          //       }
+          //     };
+          // })
+        }
+      >
+        <input
+          {...register("title")}
+          placeholder="Enter the title"
+          className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
+        />
+        <ReactQuill
+          ref={ReactQuillRef}
+          onChangeSelection={handleChangeSelection}
+          theme="snow"
+          value={content}
+          onChange={setContent}
+          modules={modules}
+          formats={formats}
+        />
+        {selectionExist && <Button onClick={handleParahrase}>Paraphrase using AI</Button>}
+        <input
+          {...register("keyword")}
+          placeholder="Enter Keyword"
+          className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
+        />
+        <input
+          {...register("metaDescription")}
+          placeholder="Enter Meta Description"
+          className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
+        />
 
-      <input
-        {...register("keyword")}
-        placeholder="Enter Keyword"
-        className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
-      />
-      <input
-        {...register("metaDescription")}
-        placeholder="Enter Meta Description"
-        className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
-      />
+        <Dialog>
+          <DialogTrigger className="border-2 rounded-md border-black p-2">
+            Generate Using AI
+          </DialogTrigger>
 
-      <Dialog>
-        <DialogTrigger className="border-2 rounded-md border-black p-2">
-          Generate Using AI
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Write what do you want to generate?</DialogTitle>
-            <DialogDescription>
-              Create a quick draft using AI{" "}
-            </DialogDescription>
-            <textarea
-              ref={idearef}
-              rows={10}
-              className="outline-none bg-zinc-300/50 p-3"
-            />
-          </DialogHeader>
-          <DialogFooter>
-            <Button onClick={handleContentGenerationUsingAI}>Generate</Button>
-            <DialogClose asChild ref={closeDialogRef}>
-              <Button className="bg-red-500">Close</Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Write what do you want to generate?</DialogTitle>
+              <DialogDescription>
+                Create a quick draft using AI{" "}
+              </DialogDescription>
+              <textarea
+                ref={idearef}
+                rows={10}
+                className="outline-none bg-zinc-300/50 p-3"
+              />
+            </DialogHeader>
+            <DialogFooter>
+              <Button onClick={handleContentGenerationUsingAI}>Generate</Button>
+              <DialogClose asChild ref={closeDialogRef}>
+                <Button className="bg-red-500">Close</Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
-      <h2>SEO Data</h2>
-      <input
-        {...register("excerpts")}
-        placeholder="Enter Excerpts"
-        className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
-      />
+        <h2>SEO Data</h2>
+        <input
+          {...register("excerpts")}
+          placeholder="Enter Excerpts"
+          className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
+        />
 
-      <input
-        {...register("category")}
-        placeholder="Enter Category"
-        className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
-      />
-      <ImageUpload returnImage={setOgImage} savedImage={ogImage} />
-      <div className="flex gap-2">
-        <select
-          {...register("status")}
-          className="bg-zinc-200 text-blacks rounded"
-        >
-          <option value="DRAFT">DRAFT</option>
-          <option value="PUBLISHED">PUBLISHED</option>
-        </select>
-        <Button className="bg-zinc-200 text-black hover:cursor-pointer hover:bg-zinc-400">
-          Save
-        </Button>
-      </div>
-    </form>
+        <input
+          {...register("category")}
+          placeholder="Enter Category"
+          className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
+        />
+        <ImageUpload returnImage={setOgImage} savedImage={ogImage} />
+        <div className="flex gap-2">
+          <select
+            {...register("status")}
+            className="bg-zinc-200 text-blacks rounded"
+          >
+            <option value="DRAFT">DRAFT</option>
+            <option value="PUBLISHED">PUBLISHED</option>
+          </select>
+          <Button className="bg-zinc-200 text-black hover:cursor-pointer hover:bg-zinc-400">
+            Save
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 }

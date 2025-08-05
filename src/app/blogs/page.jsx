@@ -65,7 +65,7 @@ const BlogCard = ({ title, excerpt, image,url }) => {
         alt={title}
         width={400}
         height={200}
-        className="object-cover w-full h-[200px]"
+        className="object-cover w-fit h-[200px]"
       />}
       <div className="p-4">
         <h1 className="text-lg font-semibold mb-2 text-gray-800">{title}</h1>
