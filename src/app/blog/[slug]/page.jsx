@@ -56,7 +56,7 @@ export default async function SingleBlogPage({params}) {
               <Calendar size={18} />
               <p>
                 Created At:{" "}
-                <span className="font-medium">{dateFormate(new Date())}</span>
+                <span className="font-medium">{dateFormate(singlePost.createdAt)}</span>
               </p>
             </div>
 

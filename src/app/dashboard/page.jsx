@@ -13,8 +13,9 @@ export default async function dashboard() {
     );
   }
   return (
-   <div className='flex justify-center items-center h-screen'> Welcome Back {session.user.name}</div>
-   
-  )
+    <div className="flex justify-center items-center h-screen">
+      <h1 className='text-3xl'>Welcome! Back {session.user.name}</h1>
+    </div>
+  );
 }
 
