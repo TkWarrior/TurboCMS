@@ -23,33 +23,39 @@ async function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 bg-white/80 backdrop-blur-md z-50 border-b border-slate-200">
+    <header className="sm:sticky top-0 bg-white/80 backdrop-blur-md z-50 border-b border-slate-200">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <nav className="hidden scroll-smooth md:flex items-center gap-6">
-          <h1 className="flex  gap-4 items-center font-bold text-slate-900">
-            <Ship size={40} />
-            <p className="text-xl">TurboCMS</p>
-          </h1>
-         
-            <Link
-              href="#feature"
-              className="text-sm font-medium  text-slate-600 hover:text-blue-600 transition-colors "
-            >
-              Features
-            </Link>
-            <Link
-              href="#"
-              className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="#contact"
-              className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
-            >
-              Contact
-            </Link>
-          
+        <nav className=" sm:scroll-smooth w-full md:flex items-center gap-6">
+          <Ship size={40} className="mx-auto sm:mx-0" />
+          <div className=" flex sm:flex gap-4 items-center font-bold text-slate-900">
+            <p className="text-xl mx-auto">TurboCMS</p>
+          </div>
+          <div className="w-fit flex mx-auto gap-8">
+            <div>
+              <Link
+                href="#feature"
+                className="text-sm font-medium  text-slate-600 hover:text-blue-600 transition-colors p-4 "
+              >
+                Features
+              </Link>
+            </div>
+            <div>
+              <Link
+                href="#"
+                className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors p-4"
+              >
+                Pricing
+              </Link>
+            </div>
+            <div>
+              <Link
+                href="#contact"
+                className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors p-4"
+              >
+                Contact
+              </Link>
+            </div>
+          </div>
         </nav>
         {session ? (
           <div className="hover:cursor-pointer">

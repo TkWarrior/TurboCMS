@@ -56,7 +56,7 @@ function EditableBlogCard({ post }){
 
  
     return (
-      <div className="bg-zinc-200 border rounded-lg shadow-md p-6 space-y-2 flex flex-col justify-between h-full transition-shadow hover:shadow-lg w-full">
+      <div className=" bg-zinc-200 border rounded-lg shadow-md p-6 space-y-2 flex flex-col justify-between h-full transition-shadow hover:shadow-lg w-full ">
         <div>
           <h1 className="text-xl font-bold text-slate-800 mb-2 break-words">
             {post.title || "Untitled Post"}

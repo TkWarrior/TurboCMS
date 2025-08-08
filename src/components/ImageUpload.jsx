@@ -53,9 +53,9 @@ export default function ImageUpload({returnImage , savedImage}){
             <div>Loading....</div>
         )}
         {imageUrl && (
-          <div className="w-fit">
+          <div className="w-[40%]">
             <h2>Uploaded successfully!</h2>
-            <img className="h-50" src={imageUrl} style={{ width: "100%" }}></img>
+            <img className="h-50" src={imageUrl} />
           </div>
         )}
       </div>

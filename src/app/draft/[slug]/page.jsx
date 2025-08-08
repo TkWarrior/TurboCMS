@@ -43,8 +43,8 @@ export default function Editdraft({ params }) {
         return <></>;
   }
   return (
-    <div className="p-8">
-      <h1 className="font-bold text-lg mb-2">Create a new post </h1>
+    <div className="p-8 min-h-[100vh]:">
+      <h1 className="font-bold mx-auto text-lg mb-2 w-fit">Create a new post </h1>
       <Editor onSave={savePost} initialData={post}/>
     </div>
   );

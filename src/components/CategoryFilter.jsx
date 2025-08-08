@@ -18,15 +18,17 @@ export default function CategoryFilter() {
     }
 
   return (
-    <form className="flex gap-2"onSubmit={handleSubmit}>
-      <Input
-        value={category}
-        className="w-[400px]"
-        onChange={(e) => setCategory(e.target.value)}
-        type="text"
-        placeholder="Search Category"
-      ></Input>
-      <Button type="submit">Filter</Button>
+    <form className="flex gap-2" onSubmit={handleSubmit}>
+      <div className="flex w-fit sm:flex w-fit mx-auto gap-2">
+        <Input
+          value={category}
+          className="w-[400px]"
+          onChange={(e) => setCategory(e.target.value)}
+          type="text"
+          placeholder="Search Category"
+        ></Input>
+        <Button type="submit">Filter</Button>
+      </div>
     </form>
   );
 }

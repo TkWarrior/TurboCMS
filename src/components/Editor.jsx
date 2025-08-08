@@ -150,7 +150,7 @@ export default function Editor({ onSave, initialData }) {
   return (
     <div>
       <form
-        className=" w-full h-screen justify-center space-y-2 "
+        className=" w-[80%] mx-auto space-y-2 "
         onSubmit={
           handleSubmit(handleForm)
           //   async(data)=>{
