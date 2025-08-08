@@ -21,6 +21,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import AiContent from "@/static/ai-content";
+import { Bot, Feather } from "lucide-react";
 
 const schema = z.object({
   title: z.string().min(10, { message: "Title must contain 10 character" }),
@@ -111,9 +112,6 @@ export default function Editor({ onSave, initialData }) {
   } 
 
   const handleContentGenerationUsingAI = async () => {
-    //  text = idearef.current.value ;
-    //  contentGen = true;
-    //  customInstruction = "Generate Content with proper facts and figures";
     try {
        const res = await AiContent({
          text: idearef.current.value,
@@ -152,7 +150,7 @@ export default function Editor({ onSave, initialData }) {
   return (
     <div>
       <form
-        className=" w-full h-screen justify-center space-y-2"
+        className=" w-full h-screen justify-center space-y-2 "
         onSubmit={
           handleSubmit(handleForm)
           //   async(data)=>{
@@ -176,7 +174,7 @@ export default function Editor({ onSave, initialData }) {
           placeholder="Enter the title"
           className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
         />
-        <ReactQuill
+        <ReactQuill className="overflow-y-auto h-100"
           ref={ReactQuillRef}
           onChangeSelection={handleChangeSelection}
           theme="snow"
@@ -185,7 +183,7 @@ export default function Editor({ onSave, initialData }) {
           modules={modules}
           formats={formats}
         />
-        {selectionExist && <Button onClick={handleParahrase}>Paraphrase using AI</Button>}
+        {selectionExist && <Button onClick={handleParahrase}>Paraphrase using AI <Feather/></Button>}
         <input
           {...register("keyword")}
           placeholder="Enter Keyword"
@@ -198,8 +196,8 @@ export default function Editor({ onSave, initialData }) {
         />
 
         <Dialog>
-          <DialogTrigger className="border-2 rounded-md border-black p-2">
-            Generate Using AI
+          <DialogTrigger className="flex gap-2 border-2 rounded-md border-black p-2">
+            Generate Using AI<Bot/>
           </DialogTrigger>
 
           <DialogContent>

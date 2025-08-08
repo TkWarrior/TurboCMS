@@ -18,7 +18,7 @@ export default function draft(){
        }
     }
     return(
-        <div className="p-8" >
+        <div className="p-8 flex flex-col min-h-[100vh]" >
             <h1 className="font-bold text-lg mb-2">Create a new post </h1>
             <Editor onSave={savePost}/>
         </div>

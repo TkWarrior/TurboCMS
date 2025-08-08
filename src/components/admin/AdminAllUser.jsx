@@ -10,7 +10,7 @@ export default async function AdminAllUser(){
     const users = await fetchAllUsers();
     console.log("users:",users)
     return (
-      <section className="flex flex-col p-8 gap-4">
+      <section className="flex flex-col  min-h-[100vh] p-8 gap-4">
         <h1>List of All users</h1>
         {users.map((user,index) => {
             return (

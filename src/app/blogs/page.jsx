@@ -43,12 +43,12 @@ const fetchAllBlogs = async()=>{
 export default async function Blogs() {
   const blogData = await fetchAllBlogs();
   return (
-    <section className="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <section className="min-h-[100vh] grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {blogData.map((blog) => (
         <BlogCard
           key={blog.id}
           title={blog.title}
-          excerpt={blog.excerpt}
+          excerpt={blog.excerpts}
           image={blog.thumbnail}
           url = {blog.slug}
         />
@@ -57,9 +57,9 @@ export default async function Blogs() {
   );
 }
 
-const BlogCard = ({ title, excerpt, image,url }) => {
+const BlogCard = ({ title, excerpts, image,url }) => {
   return (
-    <div className="bg-white shadow-md rounded-md overflow-hidden hover:shadow-lg transition duration-300">
+    <div className=" min-h-[100vh] bg-white shadow-md rounded-md overflow-hidden hover:shadow-lg transition duration-300">
       {image && <Image
         src={image}
         alt={title}
@@ -69,7 +69,7 @@ const BlogCard = ({ title, excerpt, image,url }) => {
       />}
       <div className="p-4">
         <h1 className="text-lg font-semibold mb-2 text-gray-800">{title}</h1>
-        <p className="text-sm text-gray-600 mb-3">{excerpt}</p>
+        <p className="text-sm text-gray-600 mb-3">{excerpts}</p>
         <Link
           href={`blog/${url}`}
           className="text-blue-600 font-medium hover:underline cursor-pointer"

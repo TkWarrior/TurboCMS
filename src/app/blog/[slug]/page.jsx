@@ -37,20 +37,20 @@ export default async function SingleBlogPage({params}) {
   const singlePost = await fetchSinglePage(slug)
   console.log("single page post ",singlePost)
   return (
-    <section className="md:w-[70%] mx-auto p-6">
+    <section className="w-[80%] mx-auto p-6">
       <div className="bg-white rounded-2xl shadow-md overflow-hidden text-center">
         {singlePost.thumbnail && (
           <Image
             src={singlePost.thumbnail}
             alt="React vs Next.js"
             width={500}
-            height={250}
-            className="mx-auto object-cover w-full rounded-t-2xl"
+            height={400}
+            className="mx-auto rounded-t-2xl"
           />
         )}
         <h1 className="text-2xl font-bold md:text-4xl ">{singlePost.title}</h1>
         <div className="p-6 space-y-3 w-full">
-          {/* Date */}
+        
           <div className="flex items-center gap-2 text-gray-600 text-sm">
             <div className="flex">
               <Calendar size={18} />

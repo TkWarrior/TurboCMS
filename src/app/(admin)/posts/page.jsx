@@ -18,7 +18,7 @@ export default async function AllPosts({searchParams}){
         return <UserAllPosts page={page} category={category} user={session.user}/>;
     }
     return (
-        <div> 
+        <div className="flex flex-col min-h-[100vh]"> 
             <AdminAllPosts page={page} category={category}/>
         </div>
     )

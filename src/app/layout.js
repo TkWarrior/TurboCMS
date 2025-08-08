@@ -5,6 +5,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import Navbar from "@/components/Navbar";
 import  AuthProvider  from "@/components/provider/AuthProvider";
 import { Toaster } from "@/components/ui/sonner";
+import { Footer } from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,7 +37,7 @@ export default function RootLayout({ children }) {
               <SidebarTrigger />
               <Navbar />
               {children}
-
+              <Footer/>
               <Toaster />
             </main>
           </SidebarProvider>

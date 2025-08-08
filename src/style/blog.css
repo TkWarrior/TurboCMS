@@ -1,5 +1,7 @@
 .blogContent{
-    background-color: rgb(255, 249, 241);
+    background-color: rgb(251, 251, 251);
+    text-align: start;
+    padding: 5px 0 5px 10px;
 }
 
 .blogContent h2{
@@ -13,10 +15,12 @@
 .blogContent ol {
     margin: 10psx 0;
     padding-left: 20px;
+    padding: 5px 0 5px 10px;
 }
 
 .blogContent p{
     color: var(--font-serif);
+    padding: 5px 0 5px 10px;
 }
 .blogContent li{
     position: relative;

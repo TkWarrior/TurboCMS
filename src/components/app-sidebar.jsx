@@ -1,3 +1,4 @@
+"use client"
 import {
   Sidebar,
   SidebarContent,
@@ -61,38 +62,50 @@ const adminItems = [
 ];
 export function AppSidebar() {
   return (
-    <Sidebar>
-      <SidebarContent>
+    <Sidebar className="bg-slate-50 border-r border-slate-200 h-screen flex flex-col w-64">
+      {/* Header for the brand/logo */}
+      <SidebarHeader className="p-4 border-b border-slate-200">
+        <h1 className="text-2xl font-bold text-slate-900">TurboCMS</h1>
+      </SidebarHeader>
+
+      <SidebarContent className="flex-grow p-4">
+        {/* Application Links Group */}
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-xs font-semibold text-slate-500 uppercase px-3 py-2">
+            Application
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menue.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <Link href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+                    <item.icon/>
+                    <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              ))}
+               ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>Admin</SidebarGroupLabel>
+
+        {/* Admin Links Group */}
+        <SidebarGroup className="mt-4">
+          <SidebarGroupLabel className="text-xs font-semibold text-slate-500 uppercase px-3 py-2">
+            Admin
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {adminItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </Link>
+                 <SidebarMenuItem key={item.title}>
+                   <SidebarMenuButton asChild>
+                     <Link href={item.url}>
+                       <item.icon />
+                         <span>{item.title}</span>
+                     </Link>
                   </SidebarMenuButton>
-                </SidebarMenuItem>
+                  </SidebarMenuItem>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>

@@ -23,21 +23,40 @@ async function Navbar() {
   }
 
   return (
-    <header className="flex w-full h-15 ">
-      <nav className="flex justify-between w-full px-4 items-center shadow-sm">
-        <div className="flex gap-2 px-4">
-          <Ship />
-          <h1 className='text-gray-700'> Turbo CMS</h1>
-        </div>
-        {
-            session ? <div className='hover:cursor-pointer'>
-                <UserModal user={session?.user}/>
-            </div> :  (
-              <Link href='/sign-in'>Sign in</Link>
-            )
-        }
-        
-      </nav>
+    <header className="sticky top-0 bg-white/80 backdrop-blur-md z-50 border-b border-slate-200">
+      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+        <h1 className="flex  gap-4 items-center font-bold text-slate-900">
+          <Ship size={40} />
+          <p className='text-xl'>TurboCMS</p>
+        </h1>
+        <nav className="hidden scroll-smooth md:flex items-center gap-6">
+          <Link
+            href="#feature"
+            className="text-sm font-medium  text-slate-600 hover:text-blue-600 transition-colors "
+          >
+            Features
+          </Link>
+          <Link
+            href="#"
+            className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
+          >
+            Pricing
+          </Link>
+          <Link
+            href="#contact"
+            className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
+          >
+            Contact
+          </Link>
+        </nav>
+        {session ? (
+          <div className="hover:cursor-pointer">
+            <UserModal user={session?.user} />
+          </div>
+        ) : (
+          <Link href="/sign-in">Sign in</Link>
+        )}
+      </div>
     </header>
   );
 }
