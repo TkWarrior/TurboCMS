@@ -25,29 +25,31 @@ async function Navbar() {
   return (
     <header className="sticky top-0 bg-white/80 backdrop-blur-md z-50 border-b border-slate-200">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <h1 className="flex  gap-4 items-center font-bold text-slate-900">
-          <Ship size={40} />
-          <p className='text-xl'>TurboCMS</p>
-        </h1>
         <nav className="hidden scroll-smooth md:flex items-center gap-6">
-          <Link
-            href="#feature"
-            className="text-sm font-medium  text-slate-600 hover:text-blue-600 transition-colors "
-          >
-            Features
-          </Link>
-          <Link
-            href="#"
-            className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
-          >
-            Pricing
-          </Link>
-          <Link
-            href="#contact"
-            className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
-          >
-            Contact
-          </Link>
+          <h1 className="flex  gap-4 items-center font-bold text-slate-900">
+            <Ship size={40} />
+            <p className="text-xl">TurboCMS</p>
+          </h1>
+         
+            <Link
+              href="#feature"
+              className="text-sm font-medium  text-slate-600 hover:text-blue-600 transition-colors "
+            >
+              Features
+            </Link>
+            <Link
+              href="#"
+              className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
+            >
+              Pricing
+            </Link>
+            <Link
+              href="#contact"
+              className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
+            >
+              Contact
+            </Link>
+          
         </nav>
         {session ? (
           <div className="hover:cursor-pointer">
