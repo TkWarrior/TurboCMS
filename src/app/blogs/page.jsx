@@ -43,8 +43,8 @@ const fetchAllBlogs = async()=>{
 export default async function Blogs() {
   const blogData = await fetchAllBlogs();
   return (
-    <div className="min-h-[100vh]">
-      <section className="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div className="min-h-[100vh] mt-10">
+      <section className="grid grid-cols-1 gap-3 mb-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:ml-30 sm:mr-30">
         {blogData.map((blog) => (
           <BlogCard
             key={blog.id}
@@ -61,13 +61,13 @@ export default async function Blogs() {
 
 const BlogCard = ({ title, excerpts, image,url }) => {
   return (
-    <div className="bg-white shadow-md rounded-md overflow-hidden hover:shadow-lg transition duration-300">
+    <div className="bg-white border shadow-md rounded-md overflow-hidden hover:shadow-lg transition duration-300">
       {image && <Image
         src={image}
         alt={title}
-        width={400}
-        height={200}
-        className="object-cover w-fit h-[200px]"
+        width={500}
+        height={250}
+        className=" w-fit h-[200px]"
       />}
       <div className="p-4">
         <h1 className="text-lg font-semibold mb-2 text-gray-800">{title}</h1>

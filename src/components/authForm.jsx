@@ -3,6 +3,7 @@ import { Ship } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
+import { Input } from "./ui/input";
 
 export default function AuthForm({origin}) {
   const [loading, setLoading] = useState(false);
@@ -31,14 +32,17 @@ export default function AuthForm({origin}) {
             Your all-in-one CMS to manage your content
           </p>
         </div>
-
         <button
           onClick={onSignIn}
           className="flex items-center justify-center gap-2 w-full py-3 px-4 text-white bg-gray-600 hover:bg-gray-700 rounded-lg transition-all duration-200"
         >
           <Icons />
           <span className="font-medium">
-            {loading ? "Loading..." : origin=="sign-up" ? "Sign Up" : "Sign In"}
+            {loading
+              ? "Loading..."
+              : origin == "sign-up"
+              ? "Sign Up"
+              : "Sign In"}
           </span>
         </button>
         <div className="w-full ">

@@ -7,7 +7,7 @@ const listOfAdmins = [
 
 export default async function isAdmin(session){
     if(!session) return false;
-    let userEmail = session.user.email?.toLowerCase().trim();
+    let userEmail =  session.user?.email?.toLowerCase().trim();
 
     let emailMatch = listOfAdmins.some((singleEmail) => {
       return singleEmail.toLowerCase().trim() === userEmail;

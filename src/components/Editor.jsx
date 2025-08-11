@@ -150,7 +150,7 @@ export default function Editor({ onSave, initialData }) {
   return (
     <div>
       <form
-        className=" w-[80%] mx-auto space-y-2 "
+        className=" sm:w-[80%] mx-auto space-y-2 "
         onSubmit={
           handleSubmit(handleForm)
           //   async(data)=>{
@@ -174,7 +174,7 @@ export default function Editor({ onSave, initialData }) {
           placeholder="Enter the title"
           className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
         />
-        <ReactQuill className="overflow-y-auto h-100"
+        <ReactQuill className="overflow-y-auto  sm:h-100 "
           ref={ReactQuillRef}
           onChangeSelection={handleChangeSelection}
           theme="snow"

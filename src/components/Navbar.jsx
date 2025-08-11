@@ -1,4 +1,4 @@
-import { Ship } from 'lucide-react';
+import { CircleUserRound, Ship } from 'lucide-react';
 import React from 'react'
 import { Button } from './ui/button';
 import {
@@ -25,12 +25,12 @@ async function Navbar() {
   return (
     <header className="sm:sticky top-0 bg-white/80 backdrop-blur-md z-50 border-b border-slate-200">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <nav className=" sm:scroll-smooth w-full md:flex items-center gap-6">
-          <Ship size={40} className="mx-auto sm:mx-0" />
+        <nav className=" sm:scroll-smooth w-full md:flex  items-center gap-6">
           <div className=" flex sm:flex gap-4 items-center font-bold text-slate-900">
-            <p className="text-xl mx-auto">TurboCMS</p>
+            <Ship size={40} className=" sm:mx-0" />
+            <p className="text-xl ">TurboCMS</p>
           </div>
-          <div className="w-fit flex mx-auto gap-8">
+          <div className="hidden sm:w-fit sm:flex sm:mx-auto sm:gap-8">
             <div>
               <Link
                 href="#feature"
@@ -41,10 +41,10 @@ async function Navbar() {
             </div>
             <div>
               <Link
-                href="#"
+                href="#testimonial"
                 className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors p-4"
               >
-                Pricing
+                Testimonial
               </Link>
             </div>
             <div>
@@ -62,7 +62,9 @@ async function Navbar() {
             <UserModal user={session?.user} />
           </div>
         ) : (
-          <Link href="/sign-in">Sign in</Link>
+          <Link href="/sign-in">
+            <CircleUserRound size={40} />
+          </Link>
         )}
       </div>
     </header>

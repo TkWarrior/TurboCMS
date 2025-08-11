@@ -4,11 +4,14 @@ import Link from "next/link";
 
 export default async function SingleUser({ params }) {
   const { username } =  params;
-  const user = await getSingleUser(username)
+  const user = await getSingleUser(username);
+  const posts = user.Post ;
+  
   return (
-    <div className="min-h-[100vh]"> 
+    <div className="min-h-[100vh]">
       <UserProfile user={user} />
-      <UserPosts posts={user.Post} />
+      <UserPosts posts={posts} />
+
       {/* {JSON.stringify(user, null, 2)} */}
     </div>
   );
@@ -31,18 +34,22 @@ export  function UserProfile({user}){
 
 export function UserPosts({posts}){
     const userPosts = posts;
+    
+   
     if(posts.length==0){
         return <p> No Post Available</p>
     }
     return (
-      <div className="mt-10 p-8 mx-auto">
+      <div className="mt-10 sm:p-8 ">
         <h1 className="text-center font-bold mb-10 tex-2xl">User Posts</h1>
-        {userPosts.map((post) =>{
+        { userPosts.map((post) =>{
+          
           return (
+            post.status == 'PUBLISHED' &&
             <Link
               href={`/blog/${post.slug}`}
               key={post.id}
-              className=" flex gap-4 mx-auto p-4 bg-zinc-400/20  hover:bg-zinc-400/30 transition-all duration-200 hover:scale-[1.05]  w-8/12 sm:w-6/12"
+              className=" flex gap-4 mx-auto p-4 bg-zinc-400/20  hover:bg-zinc-400/30 transition-all duration-200 hover:scale-[1.05]  sm:w-6/12"
             >
               <Image
                 src={post.thumbnail}

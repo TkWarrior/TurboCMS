@@ -14,19 +14,26 @@ export default async function AdminAllUser(){
         <h1>List of All users</h1>
         {users.map((user,index) => {
             return (
-              <Link key={index} href={`user/${user.username}`} className="flex p-3 gap-4 bg-gray-400/20">
-                <Image
-                  src={user.image}
-                  width={50}
-                  height={50}
-                  alt="user image"
-                />
-                <div>
-                  <h2 className="font-bold">{user.name}</h2>
-                  <p className="text-xs text-gray-700">{user.email}</p>
-                  <p className="text-xs text-gray-700">{user.username}</p>
-                </div>
-              </Link>
+             
+                <Link
+                  key={index}
+                  href={`user/${user.username}`}
+                  className="flex p-3 gap-4 bg-gray-400/20 "
+                >
+                  <Image
+                    src={user.image}
+                    width={70}
+                    height={70}
+                    alt="user image"
+                    className="rounded-full"
+                  />
+                  <div>
+                    <h2 className="font-bold">{user.name}</h2>
+                    <p className="text-xs text-gray-700">{user.email}</p>
+                    <p className="text-xs text-gray-700">{user.username}</p>
+                  </div>
+                </Link>
+            
             );
         })}
 
