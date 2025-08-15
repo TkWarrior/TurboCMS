@@ -2,6 +2,8 @@
 
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
+
+// import "react-quill-new/dist/quill.snow.css";
 import "react-quill-new/dist/quill.snow.css";
 import { useEffect, useRef, useState } from "react";
 // import ReactQuill from "react-quill-new";
@@ -25,7 +27,22 @@ import AiContent from "@/static/ai-content";
 import { Bot, Feather } from "lucide-react";
 
 
-const ReactQuill = dynamic(import("react-quill-new"), { ssr: false });
+const ReactQuill = dynamic(
+  async () => {
+    const { default: RQ } = await import("react-quill-new");
+    // Ensure the container div and quill editor have a proper min-height
+    // This is a direct style solution that can be more reliable
+    const EditorWithStyles = (props) => (
+      <div style={{ minHeight: "200px" }}>
+        <RQ {...props} />
+      </div>
+    );
+    return EditorWithStyles;
+  },
+  { ssr: false }
+);
+
+// const ReactQuill = dynamic(import("react-quill-new"), { ssr: false });
 
 const schema = z.object({
   title: z.string().min(10, { message: "Title must contain 10 character" }),
@@ -104,7 +121,6 @@ export default function Editor({ onSave, initialData }) {
     "italic",
     "strike",
     "list",
-    "bullet",
     "link",
     "image",
     "code-block",
@@ -178,16 +194,18 @@ export default function Editor({ onSave, initialData }) {
           placeholder="Enter the title"
           className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
         />
-        <ReactQuill
-          className="overflow-y-auto"
-          ref={ReactQuillRef}
-          onChangeSelection={handleChangeSelection}
-          theme="snow"
-          value={content}
-          onChange={setContent}
-          modules={modules}
-          formats={formats}
-        />
+        {/* <div className="my-quill-container"> */}
+          <ReactQuill
+            // className="overflow-y-auto"
+            ref={ReactQuillRef}
+            onChangeSelection={handleChangeSelection}
+            theme="snow"
+            value={content}
+            onChange={setContent}
+            modules={modules}
+            formats={formats} />
+        {/* </div> */}
+
         {selectionExist && (
           <Button onClick={handleParahrase}>
             Paraphrase using AI <Feather />

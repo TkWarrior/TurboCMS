@@ -1,8 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
 @custom-variant dark (&:is(.dark *));
-
+@import 'react-quill-new/dist/quill.snow.css';
 html { 
   scroll-behavior: smooth;
 }
@@ -133,3 +132,8 @@ html {
 .ql-syntax{
   font-family: monospace;
 }
+
+/* .my-quill-container .ql-editor {
+  min-height: 200px;
+  height: 100%;
+}  */

@@ -17,17 +17,18 @@ import {  Home, Inbox, Layout, PencilRulerIcon, PersonStanding, Search } from "l
 
 import Link from "next/link";
 
+
 const menue = [
   {
     title: "Home",
     url: "/",
     icon: Home,
   },
-  {
-    title: "Dash Board",
-    url: "/dashboard",
-    icon: Layout,
-  },
+  // {
+  //   title: "Dash Board",
+  //   url: "/dashboard",
+  //   icon: Layout,
+  // },
   {
     title: "Blogs",
     url: "/blogs",
@@ -68,19 +69,24 @@ export async function AppSidebar() {
   const adminCheck = await isAdmin(session)
   return (
     <Sidebar className="bg-slate-50 border-r border-slate-200 h-screen flex flex-col w-64">
-      
       <SidebarHeader className="p-4 border-b border-slate-200">
         <h1 className="text-2xl font-bold text-slate-900">TurboCMS</h1>
       </SidebarHeader>
 
       <SidebarContent className="flex-grow p-4">
-       
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-semibold text-slate-500 uppercase px-3 py-2">
             Application
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
+              {session && (
+                <SidebarMenuButton>
+                  <Layout />
+                  <span>Dashboard</span>
+                </SidebarMenuButton>
+              )}
+
               {menue.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
@@ -107,6 +113,7 @@ export async function AppSidebar() {
                     <SidebarMenuButton asChild>
                       <Link href={item.url}>
                         <item.icon />
+
                         <span>{item.title}</span>
                       </Link>
                     </SidebarMenuButton>
