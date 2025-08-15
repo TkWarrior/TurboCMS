@@ -32,6 +32,23 @@ export default function AuthForm({origin}) {
             Your all-in-one CMS to manage your content
           </p>
         </div>
+        <form>
+          <label htmlFor="">
+            <span className="flex">Enter Email :</span>
+          </label>
+          <Input />
+          <label htmlFor="">
+            <span className="flex">Enter Username :</span>
+          </label>
+
+          <Input />
+          <label htmlFor="">
+            <span className="flex">Enter Password :</span>
+          </label>
+          <Input />
+      
+        </form>
+        <p className="mx-auto w-fit">Or</p>
         <button
           onClick={onSignIn}
           className="flex items-center justify-center gap-2 w-full py-3 px-4 text-white bg-gray-600 hover:bg-gray-700 rounded-lg transition-all duration-200"

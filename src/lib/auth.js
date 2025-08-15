@@ -1,7 +1,11 @@
 import  { getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import  {prisma}  from "@/lib/prisma"
+import NextAuth from "next-auth";
+import { email } from "zod";
+import bcrypt from "bcryptjs";
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma),
@@ -16,7 +20,33 @@ export const authOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
+    
+    CredentialsProvider({
+      name:'Login page',
+      credentials : {
+          email:{label : "Email ", type:"email" , placeholder:"talib@example.com"},
+          password : {label : "Password" , type : "password"}
+      },
+      async authorize(credentials , req){
+        const user = await prisma.user.findUnique({
+          where: { email : credentials.email },
+        });
+
+        if(!user || !user.password){
+          return null;
+        }
+
+        const isPasswordValid = await bcrypt.compare(credentials.password , user.password)
+
+        if(isPasswordValid){
+          return user;
+        }else{
+          return null;
+        }        
+      }
+    })
   ],
+
   callbacks: {
     // if any jwt is created or updated this function will run
     async jwt({ token, user }) {
