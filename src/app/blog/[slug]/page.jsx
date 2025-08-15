@@ -38,7 +38,7 @@ export default async function SingleBlogPage({params}) {
   console.log("single page post ",singlePost)
   return (
     <section className="sm:w-[80%] mx-auto p-6">
-      <div className="bg-white rounded-md  overflow-hidden text-center">
+      <div className="bg-white rounded-md sm:shadow-md overflow-hidden text-center">
         {singlePost.thumbnail && (
           <Image
             src={singlePost.thumbnail}
