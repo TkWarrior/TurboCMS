@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import "react-quill-new/dist/quill.snow.css";
 import { useEffect, useRef, useState } from "react";
-import ReactQuill from "react-quill-new";
+// import ReactQuill from "react-quill-new";
 import { slugify } from "slugmaster";
 import ImageUpload from "./ImageUpload";
 import { toast } from "sonner";
@@ -20,12 +20,12 @@ import {
   DialogClose,
   DialogFooter,
 } from "@/components/ui/dialog";
-// import dynamic from "next/dynamic";
+import dynamic from "next/dynamic";
 import AiContent from "@/static/ai-content";
 import { Bot, Feather } from "lucide-react";
 
 
-// const ReactQuill = dynamic(import("react-quill-new"), { ssr: false });
+const ReactQuill = dynamic(import("react-quill-new"), { ssr: false });
 
 const schema = z.object({
   title: z.string().min(10, { message: "Title must contain 10 character" }),
