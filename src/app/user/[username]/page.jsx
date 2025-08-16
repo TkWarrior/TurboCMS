@@ -1,4 +1,5 @@
 import getSingleUser from "@/app/actions/getSingleUser";
+import { ScanFace } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,7 +23,21 @@ export  function UserProfile({user}){
 
     return (
       <section className="flex flex-col gap-1">
-        <Image width={100} height={100} src={image} alt="user image" className="mx-auto mt-5 rounded-full border-[greenyellow] border-2" />
+        {image ? (
+          <Image
+            width={100}
+            height={100}
+            src={image}
+            alt="user image"
+            className="mx-auto mt-5 rounded-full border-[greenyellow] border-2"
+          />
+        ) : (
+          <ScanFace
+            className="mx-auto mt-5  border-2"
+            width={100}
+            height={100}
+          />
+        )}
         <div className="text-center">
           <h1 className="font-bold ">{name}</h1>
           <p className="text-gray-500 text-sm">{email}</p>
@@ -37,7 +52,7 @@ export function UserPosts({posts}){
     
    
     if(posts.length==0){
-        return <p> No Post Available</p>
+        return <p className="w-fit mx-auto mt-10 text-red-500"> No Post Available</p>
     }
     return (
       <div className="mt-10 sm:p-8 ">

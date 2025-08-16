@@ -50,7 +50,7 @@ export default async function SingleBlogPage({params}) {
         )}
         <h1 className="text-2xl font-bold md:text-4xl ">{singlePost.title}</h1>
         <div className="flex flex-col p-6 space-y-3 w-full">
-          <div className="flex flex-col items-center gap-2 text-gray-600 text-sm">
+          <div className="flex flex-col items-center gap-2 text-gray-600 text-sm sm:flex-row">
             <div className="flex gap-2">
               <Calendar size={18} />
               <p>
@@ -61,7 +61,7 @@ export default async function SingleBlogPage({params}) {
               </p>
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex gap-2 ml-auto">
               <Image
                 src={singlePost.author.image}
                 width={25}
@@ -73,25 +73,25 @@ export default async function SingleBlogPage({params}) {
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-2 text-gray-700">
+          <div className="flex flex-col items-center gap-2 text-gray-700 sm:flex-row">
             <p className="font-medium">Category:</p>
-            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm ">
               {singlePost.catslug}
             </span>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col sm:flex-row">
             <p className="font-medium text-gray-700 mb-2">Tags:</p>
-            <div>
+           
               {singlePost?.keyword.split(",").map((tag, index) => (
                 <span
                   key={index}
-                  className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm w-fit "
+                  className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm "
                 >
                   {tag.trim()}
                 </span>
               ))}
-            </div>
+          
           </div>
         </div>
         {/* <p className="text-gray-600">

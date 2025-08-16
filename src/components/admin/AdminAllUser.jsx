@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { ScanFaceIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,12 +15,12 @@ export default async function AdminAllUser(){
         <h1>List of All users</h1>
         {users.map((user,index) => {
             return (
-             
-                <Link
-                  key={index}
-                  href={`user/${user.username}`}
-                  className="flex p-3 gap-4 bg-gray-400/20 "
-                >
+              <Link
+                key={index}
+                href={`user/${user.username}`}
+                className="flex p-3 gap-4 bg-gray-400/20 "
+              >
+                {user.image ? (
                   <Image
                     src={user.image}
                     width={70}
@@ -27,13 +28,16 @@ export default async function AdminAllUser(){
                     alt="user image"
                     className="rounded-full"
                   />
-                  <div>
-                    <h2 className="font-bold">{user.name}</h2>
-                    <p className="text-xs text-gray-700">{user.email}</p>
-                    <p className="text-xs text-gray-700">{user.username}</p>
-                  </div>
-                </Link>
-            
+                ) : (
+                  <ScanFaceIcon width={70} height={70} />
+                )}
+
+                <div>
+                  <h2 className="font-bold">{user.name}</h2>
+                  <p className="text-xs text-gray-700">{user.email}</p>
+                  <p className="text-xs text-gray-700">{user.username}</p>
+                </div>
+              </Link>
             );
         })}
 
