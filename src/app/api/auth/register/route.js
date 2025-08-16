@@ -4,7 +4,11 @@ import { NextResponse } from "next/server";
 
 export default async function handler(req){
 
-    const {name ,email ,password} = await req.body();
+    const {name ,email ,password} = await req.body;
+
+    if(!email || !password || !name){
+        return NextResponse.json({message : "All fields are required. "});
+    }
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);

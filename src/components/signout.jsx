@@ -4,7 +4,7 @@ import { signOut } from "next-auth/react";
 
 export default function SignOut(){
     return(
-        <div onClick={()=>signOut({callbackUrl:'/sign-in'})}className="flex items-center gap-2">
+        <div onClick={()=>signOut({ redirect:true ,callbackUrl:'/sign-in'})} className="flex items-center gap-2">
             <LogOut/>
             sign out
         </div>

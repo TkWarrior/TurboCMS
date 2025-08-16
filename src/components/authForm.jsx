@@ -7,18 +7,22 @@ import { Input } from "./ui/input";
 
 export default function AuthForm({origin}) {
   const [loading, setLoading] = useState(false);
-
-  async function onSignIn() {
-    try {
-      setLoading(true);
-      await signIn("google");
-    } catch (error) {
-      console.log(error);
-      toast("Oops! Unable to Sign In");
-    } finally {
-      setLoading(false);
-    }
-  }
+  const [email ,setEmail] = useState('');
+  const [password , setPassword] = useState('');
+  const [name ,setName] = useState('');
+  const[error , setError] = useState(false);
+  
+  // async function onSignIn() {
+  //   try {
+  //     setLoading(true);
+  //     await signIn("google");
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast("Oops! Unable to Sign In");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
 
   return (
     <section className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-white to-slate-100 px-4">
@@ -36,7 +40,7 @@ export default function AuthForm({origin}) {
           <label htmlFor="">
             <span className="flex">Enter Email :</span>
           </label>
-          <Input />
+          <Input type="email" />
           <label htmlFor="">
             <span className="flex">Enter Username :</span>
           </label>
@@ -50,7 +54,7 @@ export default function AuthForm({origin}) {
         </form>
         <p className="mx-auto w-fit">Or</p>
         <button
-          onClick={onSignIn}
+          onClick={() => signIn('google')}
           className="flex items-center justify-center gap-2 w-full py-3 px-4 text-white bg-gray-600 hover:bg-gray-700 rounded-lg transition-all duration-200"
         >
           <Icons />
@@ -65,7 +69,7 @@ export default function AuthForm({origin}) {
         <div className="w-full ">
           {origin == "sign-up" ? (
             <p className="text-gray-500 text-sm w-fit mx-auto ">
-              Alraedy A Memeber {"  "}
+              Already A Member {"  "}
               <Link href="/sign-in" className="underline text-blue-400">
                 Sign In
               </Link>

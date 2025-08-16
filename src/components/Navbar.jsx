@@ -90,7 +90,7 @@ const UserModal = ({user}) => {
           </DropdownMenuItem>
           
           <DropdownMenuItem>
-            <SignOut/>
+            <SignOut />
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
