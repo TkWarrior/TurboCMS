@@ -24,11 +24,11 @@ const menue = [
     url: "/",
     icon: Home,
   },
-  // {
-  //   title: "Dash Board",
-  //   url: "/dashboard",
-  //   icon: Layout,
-  // },
+  {
+    title: "Dash Board",
+    url: "/dashboard",
+    icon: Layout,
+  },
   {
     title: "Blogs",
     url: "/blogs",
@@ -80,13 +80,7 @@ export async function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {session && (
-                <SidebarMenuButton>
-                  <Layout />
-                  <span>Dashboard</span>
-                </SidebarMenuButton>
-              )}
-
+              
               {menue.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>

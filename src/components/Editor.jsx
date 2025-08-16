@@ -196,7 +196,7 @@ export default function Editor({ onSave, initialData }) {
         />
         {/* <div className="my-quill-container"> */}
           <ReactQuill
-            // className="overflow-y-auto"
+            className="overflow-y-auto"
             ref={ReactQuillRef}
             onChangeSelection={handleChangeSelection}
             theme="snow"

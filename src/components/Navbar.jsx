@@ -1,4 +1,4 @@
-import { CircleUserRound, Ship } from 'lucide-react';
+import { CircleUserRound, ScanFace, Ship } from 'lucide-react';
 import React from 'react'
 import { Button } from './ui/button';
 import {
@@ -75,12 +75,20 @@ const UserModal = ({user}) => {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <Image 
-            src={user.image}
-            alt="user image"
-            width={40}
-            height={40}
-            className='rounded-full border-2 border-green-500'/>
+          {user.image ? (
+            <Image
+              src={user.image}
+              alt="user image"
+              width={40}
+              height={40}
+              className="rounded-full border-2 border-green-500"
+            />
+          ) : (
+            <ScanFace
+              width={40}
+              height={40}
+            />
+          )}
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>Hii, {user.name}</DropdownMenuLabel>
@@ -88,7 +96,7 @@ const UserModal = ({user}) => {
           <DropdownMenuItem>
             <Link href={`/profile/${user.username}`}> Go to Profile</Link>
           </DropdownMenuItem>
-          
+
           <DropdownMenuItem>
             <SignOut />
           </DropdownMenuItem>
