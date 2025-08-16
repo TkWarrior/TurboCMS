@@ -13,7 +13,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { getAuthsession } from "@/lib/auth";
-import {  Home, Inbox, Layout, PencilRulerIcon, PersonStanding, Search } from "lucide-react";
+import {  Home, Inbox, InboxIcon, Layout, PencilRulerIcon, PersonStanding, Search } from "lucide-react";
 
 import Link from "next/link";
 
@@ -41,10 +41,15 @@ const menue = [
     icon: PencilRulerIcon,
   },
   {
+    title: "Manage Blogs",
+    url: "/posts",
+    icon: InboxIcon,
+  },
+  {
     title: "Search",
     url: "/search",
     icon: Search,
-  }
+  },
 ];
 
 const adminItems = [
