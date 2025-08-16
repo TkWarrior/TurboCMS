@@ -17,7 +17,7 @@ function TypeWriterHeadline() {
      
       <TypeAnimation
         sequence={[
-          1000,
+          1500,
           "Let AI Fuel Your Blog. ",
           3000,
           () => {
@@ -25,7 +25,7 @@ function TypeWriterHeadline() {
           },
         ]}
         wrapper="span"
-        speed={50}
+        speed={40}
         cursor={false}
         className="block gradient-text"
         repeat={0}
