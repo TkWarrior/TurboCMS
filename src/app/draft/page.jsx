@@ -9,7 +9,7 @@ export default function draft(){
         const data = {title,slug , ogImage , content,keyword,metaDescription,excerpts,category,status}
        try {
          const res = await axios.post(
-           "api/v1/create",
+           "/api/v1/create",
            data
          );
          console.log("post saved successfully",res.data)
