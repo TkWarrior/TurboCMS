@@ -40,11 +40,7 @@ const menue = [
     url: "/draft",
     icon: PencilRulerIcon,
   },
-  {
-    title: "Manage Blogs",
-    url: "/posts",
-    icon: InboxIcon,
-  },
+ 
   {
     title: "Search",
     url: "/search",

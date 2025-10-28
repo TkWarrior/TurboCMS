@@ -36,6 +36,7 @@ import Link from "next/link";
 const fetchAllBlogs = async()=>{
     const res = await axios.get(`${process.env.NEXTAUTH_URL}//api/v1/get`);
     const data = await res.data;
+    console.log("fetched data" ,data)
     return data;
 }
 
