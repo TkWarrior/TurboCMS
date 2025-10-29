@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
-  const { slug } = params;
+  const { slug } = await params;
   const post = await prisma.post.findUnique({
     where: {
       slug: slug,

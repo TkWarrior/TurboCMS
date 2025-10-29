@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default async function SingleUser({ params }) {
-  const { username } =  params;
+  const { username } = await params;
   const user = await getSingleUser(username);
   const posts = user.Post ;
   

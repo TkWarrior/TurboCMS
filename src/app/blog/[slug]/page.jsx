@@ -22,7 +22,7 @@ const fetchSinglePage = async(slug) => {
 };
 
 export async function generateMetadata({params}){
-      const {slug} = params;
+      const {slug} = await params;
       const res = await fetchSinglePage(slug);
 
       return {
@@ -36,7 +36,7 @@ export async function generateMetadata({params}){
 
 export default async function SingleBlogPage({params}) {
   
-  const {slug} = params;
+  const {slug} = await params;
   const singlePost = await fetchSinglePage(slug)
   console.log("single page post ",singlePost)
   return (
