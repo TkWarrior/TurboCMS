@@ -1,38 +1,5 @@
-// "use client"
-// import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-// import { useEffect, useState } from "react";
-// const blogConfig = [
-//   {
-//     id: 1,
-//     title: "Spring Boot vs Node JS",
-//     excerpt: "A guide for the beginner",
-//     image: "/thumbnail/spring-vs-node-js .png", 
-//     url:"blog/demo-slug"
-//   },
-//   {
-//     id: 2,
-//     title: "React vs Node JS",
-//     excerpt: "Which One is more suitable for faster development",
-//     image: "/thumbnail/react-vs-nextjs.png",
-//     url:"blog/demo-slug"
-//   },
-//   {
-//     id: 3,
-//     title: "React Developer Roadmap",
-//     excerpt: "Start Your journey as a react developer",
-//     image: "/thumbnail/react-roadmap.png",
-//     url:"blog/demo-slug"
-//   },
-//   {
-//     id: 4,
-//     title: "Frontend Developer Roadmap",
-//     excerpt: "Start Your journey as a  front-end-developer",
-//     image: "/thumbnail/frontendroadmap.webp",
-//     url:"blog/demo-slug"
-//   },
-// ];
 
 const fetchAllBlogs = async () => {
   try {
@@ -53,34 +20,14 @@ const fetchAllBlogs = async () => {
 };
 
 export default async function Blogs() {
-// export default function Blogs() {
-  // const [blogs, setBlogs] = useState([]);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
-
-  // useEffect(() => {
-  //   async function fetchBlogs() {
-  //     try {
-  //       const res = await fetch( `${process.env.NEXT_PUBLIC_BASE_URL}//api/v1/get`);
-  //       if (!res.ok) throw new Error("Failed to fetch");
-  //       const data = await res.json();
-  //       console.log("Fetched blogs:", data);
-  //       setBlogs(data.blogs);
-  //     } catch (err) {
-  //       console.log("error log",err)
-  //       setError(err.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-
-  //   fetchBlogs();
-  // }, []);
+  
   const blogData = await fetchAllBlogs();
   console.log(blogData);
+  
   if (!blogData || blogData.length === 0) {
     return <div>No blogs available at the moment.</div>;
   }
+  
   return (
     <div className="min-h-[100vh] mt-10">
       <section className="grid grid-cols-1 gap-3 mb-10 md:grid-cols-2 lg:grid-cols-3 sm:ml-30 sm:mr-30 md:ml-10 md:mr-10 lg:ml-20 lg:mr-20">
