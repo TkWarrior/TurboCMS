@@ -23,7 +23,7 @@ export default async function AiContent({
                 **Format Requirements:**
                 - Start with a captivating introductory paragraph that hooks the reader.
                 - Structure the main content using clear headings (H2s) and subheadings (H3s).
-                - Incorporate bullet points or numbered lists to break up text and improve readability. 
+                - Incorporate bullet points or numbered lists to break up text and improve readability.
                 - Include a concluding paragraph that summarizes the key takeaways.
                 - The entire output must be in valid HTML format.
 
@@ -42,15 +42,23 @@ export default async function AiContent({
                 - The entire output must be in valid HTML format.
 
                 **Custom Instructions:** ${customInstruction}"`;
+      }
+
+    
+
+    const result = await model.generateContentStream(prompt);
+
+    let generatedText = "";
+
+    // Read chunks as they arrive
+    for await (const chunk of result.stream) {
+      const chunkText = chunk.text();
+      if (chunkText) {
+        generatedText += chunkText;
+      }
     }
 
-    const result = await model.generateContent(prompt);
-    const response = result.response;
-
-    const generatedText = response.text();
-
     console.log("AI Response Text:", generatedText);
-
     return generatedText;
   } catch (error) {
     console.error("Error generating AI content:", error);

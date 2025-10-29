@@ -68,6 +68,7 @@ export default function Editor({ onSave, initialData }) {
 
   const [content, setContent] = useState("");
   const [ogImage, setOgImage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const idearef = useRef(null);
   const closeDialogRef = useRef(null);
@@ -77,7 +78,11 @@ export default function Editor({ onSave, initialData }) {
   useEffect(() => {
     if (initialData) {
       setValue("title", initialData.title);
-      setContent(initialData.content);
+      // setContent(initialData.content);
+      if (initialData && ReactQuillRef.current) {
+        const editor = ReactQuillRef.current.getEditor();
+        editor.clipboard.dangerouslyPasteHTML(initialData.content || "");
+      }
       setValue("keyword", initialData.keyword || "");
       setValue("metaDescription", initialData.desc || "");
       setValue("excerpts", initialData.excerpts || "");
@@ -136,9 +141,12 @@ export default function Editor({ onSave, initialData }) {
        const res = await AiContent({
          text: idearef.current.value,
          contentGen: true,
-         customInstruction: "Generate Content with prpoer facts and figures",
+         customInstruction: "Generate Content with proper facts and figures",
        });
-       setContent(res);
+      //  setContent(res);
+      const editor = ReactQuillRef.current.getEditor();
+      editor.clipboard.dangerouslyPasteHTML(res);
+  
     } catch (error) {
       console.error(error.message);
     } finally {
@@ -195,6 +203,7 @@ export default function Editor({ onSave, initialData }) {
           className="bg-zinc-200 w-full h-10 px-3 py-2 outline-none rounded"
         />
         {/* <div className="my-quill-container"> */}
+        <div className="relative">
           <ReactQuill
             className="overflow-y-auto"
             ref={ReactQuillRef}
@@ -203,7 +212,15 @@ export default function Editor({ onSave, initialData }) {
             value={content}
             onChange={setContent}
             modules={modules}
-            formats={formats} />
+            formats={formats}
+          />
+          {isLoading && (
+            <div className="absolute inset-0 bg-black/20 flex items-center justify-center z-10">
+              <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-b-4 border-blue-500"></div>
+            </div>
+          )}
+        </div>
+
         {/* </div> */}
 
         {selectionExist && (
