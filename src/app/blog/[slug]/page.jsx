@@ -8,9 +8,9 @@ import { notFound } from "next/navigation";
 const fetchSinglePage = async(slug) => {
       const res = await fetch(`${process.env.NEXTAUTH_URL}//api/v1/get/${slug}`, {next : {tags : [slug]}})
     
-      // if(res.status == 404){
-      //  return notFound()
-      // }
+      if(res.status == 404){
+       return notFound()
+      }
      
       const data = await res.json();
       
