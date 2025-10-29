@@ -2,13 +2,13 @@ import { NextResponse } from "next/server";
 import { rateLimit } from "./app/utils/rateLimit"
 
 export async function middleware(request){
-    const allowedOrigins = ["https://localhoast:3000","https://abc.com"];
+    const allowedOrigins = ["http://localhost:3000","https://abc.com"];
 
     if(request.method == 'GET'){
 
-        const orgin = request.headers.get('orgin');
+        const origin = request.headers.get('origin');
 
-        if(allowedOrigins.includes(orgin)){
+        if(allowedOrigins.includes(origin)){
             return NextResponse.json({message : "CORS BLOCKED"},{status : 403});
         }
 

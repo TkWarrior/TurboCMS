@@ -1,7 +1,8 @@
-import axios from "axios";
+// "use client"
+// import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-
+// import { useEffect, useState } from "react";
 // const blogConfig = [
 //   {
 //     id: 1,
@@ -33,16 +34,53 @@ import Link from "next/link";
 //   },
 // ];
 
-const fetchAllBlogs = async()=>{
-    const res = await axios.get(`${process.env.NEXTAUTH_URL}/api/v1/get`);
-  
-   const data = await res.data();
-   console.log("Fetched data:", data);
+const fetchAllBlogs = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/get`); 
+    console.log("response object:", res);
+    console.log("API URL:", `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/get`);
+    if (!res.ok) {
+      throw new Error(`Failed to fetch blogs: ${res.status} ${res.statusText}`);
+    }
+    const data = await res.json(); 
+    console.log("Fetched data:", data);
     return data;
-}
+  } catch (error) {
+  
+    console.error("Error details:", error.response?.data || error.message);
+    throw error; 
+  }
+};
 
 export default async function Blogs() {
+// export default function Blogs() {
+  // const [blogs, setBlogs] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
+
+  // useEffect(() => {
+  //   async function fetchBlogs() {
+  //     try {
+  //       const res = await fetch( `${process.env.NEXT_PUBLIC_BASE_URL}//api/v1/get`);
+  //       if (!res.ok) throw new Error("Failed to fetch");
+  //       const data = await res.json();
+  //       console.log("Fetched blogs:", data);
+  //       setBlogs(data.blogs);
+  //     } catch (err) {
+  //       console.log("error log",err)
+  //       setError(err.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+
+  //   fetchBlogs();
+  // }, []);
   const blogData = await fetchAllBlogs();
+  console.log(blogData);
+  if (!blogData || blogData.length === 0) {
+    return <div>No blogs available at the moment.</div>;
+  }
   return (
     <div className="min-h-[100vh] mt-10">
       <section className="grid grid-cols-1 gap-3 mb-10 md:grid-cols-2 lg:grid-cols-3 sm:ml-30 sm:mr-30 md:ml-10 md:mr-10 lg:ml-20 lg:mr-20">

@@ -62,7 +62,7 @@ model Post {
   title     String
   slug      String     @unique
   content   String
-  thumbnail String?
+  thumbnail String? 
   desc      String?
   catslug   String?
   status    PostStatus @default(DRAFT)

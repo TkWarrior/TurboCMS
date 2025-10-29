@@ -6,8 +6,11 @@ import "@/style/blog.css"
 import { notFound } from "next/navigation";
 
 const fetchSinglePage = async(slug) => {
-      const res = await fetch(`${process.env.NEXTAUTH_URL}//api/v1/get/${slug}`, {next : {tags : [slug]}})
-    
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}//api/v1/get/${slug}`,
+        { next: { tags: [slug] } }
+      );
+      console.log("API URL:", `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/get`);
       if(res.status == 404){
        return notFound()
       }
