@@ -46,6 +46,11 @@ const menue = [
     url: "/search",
     icon: Search,
   },
+  {
+    title : "Manage Blogs",
+    url : "/posts",
+    icon : InboxIcon,
+  }
 ];
 
 const adminItems = [
