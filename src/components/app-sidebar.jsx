@@ -76,7 +76,13 @@ export async function AppSidebar() {
   return (
     <Sidebar className="bg-slate-50 border-r border-slate-200 h-screen flex flex-col w-64">
       <SidebarHeader className="p-4 border-b border-slate-200">
-        <h1 className="text-2xl font-bold text-slate-900">TurboCMS</h1>
+        {session ? (
+          <h1 className="text-2xl ml-4 font-bold text-slate-900">
+            {session.user.name}
+          </h1>
+        ) : (
+          <h1 className="text-2xl font-bold text-slate-900">TurboCMS</h1>
+        )}
       </SidebarHeader>
 
       <SidebarContent className="flex-grow p-4">
@@ -86,7 +92,6 @@ export async function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              
               {menue.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>

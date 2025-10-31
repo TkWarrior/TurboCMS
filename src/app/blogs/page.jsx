@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import getSingleUser from "../actions/getSingleUser";
+import { getAuthsession } from "@/lib/auth";
 
 const fetchAllBlogs = async () => {
   try {
@@ -20,7 +22,9 @@ const fetchAllBlogs = async () => {
 };
 
 export default async function Blogs() {
-  
+  const session = await getAuthsession();
+  const user = await getSingleUser(session.user.username);
+  const posts = user.Post ;
   const blogData = await fetchAllBlogs();
   console.log(blogData);
   
@@ -31,15 +35,24 @@ export default async function Blogs() {
   return (
     <div className="min-h-[100vh] mt-10">
       <section className="grid grid-cols-1 gap-3 mb-10 md:grid-cols-2 lg:grid-cols-3 sm:ml-30 sm:mr-30 md:ml-10 md:mr-10 lg:ml-20 lg:mr-20">
-        {blogData.map((blog) => (
-          <BlogCard
-            key={blog.id}
-            title={blog.title}
-            excerpts={blog.excerpts}
-            image={blog.thumbnail}
-            url={blog.slug}
-          />
-        ))}
+        {user
+          ? posts.map((blog) => (
+              <BlogCard
+                key={blog.id}
+                title={blog.title}
+                excerpts={blog.excerpts}
+                image={blog.thumbnail}
+                url={blog.slug}
+              />)) : blogData.map((blog) => (
+              <BlogCard
+                key={blog.id}
+                title={blog.title}
+                excerpts={blog.excerpts}
+                image={blog.thumbnail}
+                url={blog.slug}
+              />
+            ))
+  }
       </section>
     </div>
   );

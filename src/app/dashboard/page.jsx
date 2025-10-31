@@ -11,9 +11,9 @@ export default async function dashboard() {
       redirect("/sign-in")
   }
   return (
-    <div className="flex justify-center items-center h-screen">
-      <SingleUser params={{username:session.user.username}} />
-    </div>
+      <div className="min-h-[100vh]">
+       <SingleUser params={{ username: session.user.username }} />{" "}
+      </div>
   );
 }
 
