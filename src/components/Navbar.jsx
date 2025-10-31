@@ -28,7 +28,7 @@ async function Navbar() {
         <nav className=" sm:scroll-smooth w-full md:flex  items-center gap-6">
           <div className=" flex sm:flex gap-4 items-center font-bold text-slate-900">
             <Ship size={40} className=" sm:mx-0" />
-            <p className="text-xl ">TurboCMS</p>
+            {/* <p className="text-xl ">TurboCMS</p> */}
           </div>
           <div className="hidden sm:w-fit sm:flex sm:mx-auto sm:gap-8">
             <div>
