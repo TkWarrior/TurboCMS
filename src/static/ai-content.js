@@ -46,7 +46,13 @@ export default async function AiContent({
 
     
 
-    const result = await model.generateContentStream(prompt);
+    const result = await model.generateContentStream({
+      contents: [{ role: "user", parts: [{ text: prompt }] }],
+      generationConfig: {
+        maxOutputTokens: 512,
+        temperature: 0.7,
+      },
+    });;
 
     let generatedText = "";
 
