@@ -23,9 +23,13 @@ const fetchAllBlogs = async () => {
 
 export default async function Blogs() {
   const session = await getAuthsession();
-  const user = await getSingleUser(session.user.username);
-  const posts = user.Post ;
+  const user = session?.user?.username
+  ? await getSingleUser(session.user.username)
+  : null;
+
+  const posts = user?.Post ;
   const blogData = await fetchAllBlogs();
+  
   console.log(blogData);
   
   if (!blogData || blogData.length === 0) {
@@ -43,7 +47,10 @@ export default async function Blogs() {
                 excerpts={blog.excerpts}
                 image={blog.thumbnail}
                 url={blog.slug}
-              />)) : blogData.map((blog) => (
+                status={blog.status}
+              />
+            ))
+          : blogData.map((blog) => (
               <BlogCard
                 key={blog.id}
                 title={blog.title}
@@ -51,14 +58,13 @@ export default async function Blogs() {
                 image={blog.thumbnail}
                 url={blog.slug}
               />
-            ))
-  }
+            ))}
       </section>
     </div>
   );
 }
 
-const BlogCard = ({ title, excerpts, image,url }) => {
+const BlogCard = ({ title, excerpts, image,url,status }) => {
   return (
     <div className="bg-white border shadow-md overflow-hidden hover:shadow-lg transition duration-300">
       {image && <Image
