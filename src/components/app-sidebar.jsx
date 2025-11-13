@@ -28,7 +28,7 @@ const menue = [
   
   {
     title: "All Blogs",
-    url: "/blogs",
+    url: "/allblogs",
     icon: Inbox,
   }
 ]
