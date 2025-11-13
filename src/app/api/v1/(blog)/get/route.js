@@ -9,7 +9,7 @@ export async function GET() {
         status: PostStatus.PUBLISHED,
       },
     });
-    console.log("all posts".posts);
+    console.log("all posts",posts);
     return NextResponse.json(posts, { status: 200 });
   } catch (error) {
     console.error("Prisma error in /api/v1/get:", error);

@@ -16,9 +16,23 @@ import { getAuthsession } from "@/lib/auth";
 import {  Home, Inbox, InboxIcon, Layout, PencilRulerIcon, PersonStanding, Search } from "lucide-react";
 
 import Link from "next/link";
+import { url } from "zod";
 
 
 const menue = [
+  {
+    title: "Home",
+    url: "/",
+    icon: Home, 
+  },
+  
+  {
+    title: "All Blogs",
+    url: "/blogs",
+    icon: Inbox,
+  }
+]
+const usermenue = [
   {
     title: "Home",
     url: "/",
@@ -30,11 +44,15 @@ const menue = [
     icon: Layout,
   },
   {
-    title: "Blogs",
-    url: "/blogs",
+    title: "My Blogs",
+    url: "/userblogs",
     icon: Inbox,
   },
-
+  {
+    title : "All Blogs",
+    url : "/allblogs",
+    icon : Inbox,
+  },
   {
     title: "Draft",
     url: "/draft",
@@ -72,6 +90,7 @@ const adminItems = [
 ];
 export async function AppSidebar() {
   const session = await getAuthsession();
+  console.log("session in sidebar", session);
   const adminCheck = await isAdmin(session)
   return (
     <Sidebar className="bg-slate-50 border-r border-slate-200 h-screen flex flex-col w-64">
@@ -91,18 +110,33 @@ export async function AppSidebar() {
             Application
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
-              {menue.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
+            {session ? (
+              <SidebarMenu>
+                {usermenue.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <Link href={item.url}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            ) : (
+              <SidebarMenu>
+                {menue.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <Link href={item.url}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            )}
           </SidebarGroupContent>
         </SidebarGroup>
 

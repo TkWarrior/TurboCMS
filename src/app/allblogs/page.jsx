@@ -22,15 +22,17 @@ const fetchAllBlogs = async () => {
 };
 
 export default async function Blogs() {
-  const session = await getAuthsession();
-  const user = session?.user?.username
-  ? await getSingleUser(session.user.username)
-  : null;
-
-  const posts = user?.Post ;
+  // const session = await getAuthsession();
+  // console.log("session in blogs page", session);
+  // const user = session?.user?.username
+  // ? await getSingleUser(session.user.username)
+  // : null;
+  // console.log("user in blogs page", user);
+  // const posts = user?.Post ;
+  // console.log("user posts:", posts);
   const blogData = await fetchAllBlogs();
   
-  console.log(blogData);
+  // console.log("all blogs data: ",blogData);
   
   if (!blogData || blogData.length === 0) {
     return <div>No blogs available at the moment.</div>;
@@ -39,8 +41,7 @@ export default async function Blogs() {
   return (
     <div className="min-h-[100vh] mt-10">
       <section className="grid grid-cols-1 gap-3 mb-10 md:grid-cols-2 lg:grid-cols-3 sm:ml-30 sm:mr-30 md:ml-10 md:mr-10 lg:ml-20 lg:mr-20">
-        {user
-          ? posts.map((blog) => (
+        {blogData.map((blog) => (
               <BlogCard
                 key={blog.id}
                 title={blog.title}
@@ -48,15 +49,6 @@ export default async function Blogs() {
                 image={blog.thumbnail}
                 url={blog.slug}
                 status={blog.status}
-              />
-            ))
-          : blogData.map((blog) => (
-              <BlogCard
-                key={blog.id}
-                title={blog.title}
-                excerpts={blog.excerpts}
-                image={blog.thumbnail}
-                url={blog.slug}
               />
             ))}
       </section>
@@ -83,6 +75,7 @@ const BlogCard = ({ title, excerpts, image,url,status }) => {
         >
           Read More →
         </Link>
+        <p className="mt-2 text-sm text-gray-500">Status: {status || 'N/A'}</p>
       </div>
     </div>
   );
